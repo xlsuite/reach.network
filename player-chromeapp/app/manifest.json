@@ -1,0 +1,34 @@
+{
+  "manifest_version": 2,
+  "name": "Reach.Network Player",
+  "description": "Reach.Network - The Enterprise Digital Signage Platform - Everything you need to create amazing digital signage for free.",
+  "author":  {
+    "email": "support@risevision.com" //todo (Reach.Network): change it
+  },  
+  "version": "1.0",
+  "icons": {
+    "16": "icon_16.png",
+    "128": "icon_128.png"
+  },  
+  "app": {
+    "background": {
+      "scripts": ["main.js"]
+    }   
+  },  
+  "kiosk_enabled": true,
+  "permissions": [
+    "app.window",
+    "<all_urls>",
+    "fileSystem",
+    "fullscreen",
+    "geolocation",
+    "power",
+    "storage",
+    "unlimitedStorage",
+    "webview",
+    "system.display",
+    "serial",
+    { "socket" : ["tcp-listen"] }
+  ]
+}
+

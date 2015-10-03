@@ -1,0 +1,23 @@
+machine:
+  node:
+    version: 0.12.4
+
+dependencies:
+  post:
+    - git clone git@github.com:Rise-Vision/private-keys.git
+  cache_directories:
+    - "/home/ubuntu/nvm/versions/node/v0.12.4"
+
+test:
+  override:
+    - echo "no tests"
+
+deployment:
+  staging:
+    branch: /(feature|fix|chore).*/
+    commands:
+      - node deploy.js
+  production:
+    branch: master
+    commands:
+      - node deploy.js
