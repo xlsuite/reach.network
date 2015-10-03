@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.risevision</groupId>
+  <artifactId>viewer</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+  
+  <prerequisites>
+    <maven>3.1.0</maven>
+  </prerequisites>
+  
+  <properties>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <appengine.api.version>1.9.19</appengine.api.version>
+    <gwt.version>2.7.0</gwt.version>
+    <webappdir>${project.build.directory}/${project.build.finalName}</webappdir>
+    <web-lib.dir>${basedir}/src/main/webapp/WEB-INF/lib</web-lib.dir>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <!-- GAE libraries -->
+    <dependency>
+      <groupId>com.google.appengine</groupId>
+      <artifactId>appengine-api-labs</artifactId>
+      <version>${appengine.api.version}</version>
+    </dependency>
+    <!-- End GAE libraries -->
+    
+    <!-- GWT libraries -->
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-servlet</artifactId>
+      <version>${gwt.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <version>${gwt.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-dev</artifactId>
+      <version>${gwt.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- End GWT libraries -->
+    
+    <!-- RiseVision libraries -->    
+    <dependency>
+      <groupId>com.risevision</groupId>
+      <artifactId>core</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${web-lib.dir}/com.risevision.core.api.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.risevision</groupId>
+      <artifactId>common</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${web-lib.dir}/com.risevision.common.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.risevision</groupId>
+      <artifactId>signpost-core</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${web-lib.dir}/signpost-core.jar</systemPath>
+    </dependency>
+    <!-- End RiseVision libraries -->
+    
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.10</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.google.appengine</groupId>
+        <artifactId>appengine-maven-plugin</artifactId>
+        <version>${appengine.api.version}</version>
+        <configuration>
+          <port>8888</port>
+          <email>jenkins@risevision.com</email>
+          <oauth2>false</oauth2>
+          <noCookies>true</noCookies>
+          <passin>true</passin>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <version>${gwt.version}</version>
+        <executions>
+          <execution>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>compile</goal>
+              <goal>test</goal>
+              <goal>generateAsync</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <modules>
+            <module>com.risevision.viewer.GwtViewer</module>
+          </modules>
+          <runTarget>Viewer.html</runTarget>
+          <appEngineVersion>${appengine.api.version}</appEngineVersion>
+          <webappDirectory>${webappdir}</webappDirectory>
+          <hostedWebapp>${webappdir}</hostedWebapp>
+          <server>com.google.appengine.tools.development.gwt.AppEngineLauncher</server>
+        </configuration>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>gwt-maven-plugin</artifactId>
+                    <versionRange>${gwt.version}</versionRange>
+                    <goals>
+                      <goal>compile</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <execute />
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.datanucleus</groupId>
+                    <artifactId>maven-datanucleus-plugin</artifactId>
+                    <versionRange>[1.0,)</versionRange>
+                    <goals>
+                      <goal>enhance</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <versionRange>2.6</versionRange>
+                    <goals>
+                      <goal>exploded</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <execute />
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

@@ -1,0 +1,22 @@
+checkout:
+  post:
+    # Update environment depending URLs
+    - if [ $CIRCLE_BRANCH == "master" ]; then export DEPLOYENV=prod; else export DEPLOYENV=staging; fi; cat src/main/java/com/risevision/viewer/client/info/Global.java | awk -v DEPLOYENV=$DEPLOYENV 'BEGIN{OFS=FS="="}/String ENV/{$2=" \"" DEPLOYENV "\";"}1' | awk 'gsub("{dateTime}", strftime("%Y%m%d%H%M"))1' > Global.tmp
+    - mv Global.tmp src/main/java/com/risevision/viewer/client/info/Global.java
+    # Update version number
+    - cat src/main/webapp/WEB-INF/appengine-web.xml | awk 'gsub("{dateTime}", strftime("%Y%m%d%H%M"))1' > appengine-web.tmp
+    - mv appengine-web.tmp src/main/webapp/WEB-INF/appengine-web.xml
+    # Update Twitter credentials
+    - cat src/main/java/com/risevision/viewer/server/MakeRequestServlet.java | awk -v TWITTER_CONSUMER_KEY=$TWITTER_CONSUMER_KEY 'BEGIN{OFS=FS="="}/String TWITTER_CONSUMER_KEY/{$2=" \"" TWITTER_CONSUMER_KEY "\";"}1' | awk -v TWITTER_CONSUMER_SECRET=$TWITTER_CONSUMER_SECRET 'BEGIN{OFS=FS="="}/String TWITTER_CONSUMER_SECRET/{$2=" \"" TWITTER_CONSUMER_SECRET "\";"}1' > MakeRequestServlet.tmp
+    - mv MakeRequestServlet.tmp src/main/java/com/risevision/viewer/server/MakeRequestServlet.java
+
+deployment:
+  staging:
+    branch: /(feature|fix|chore).*/
+    commands:
+      - mvn appengine:update -Dappengine.version=$(echo -n $CIRCLE_BRANCH |awk 'BEGIN{FS="/"}{print tolower($NF)}') -Dappengine.appId=rvaviewer-test <<< $JENKINS_PASS
+  production:
+    branch: master
+    commands:
+      - mvn appengine:update -Dappengine.version=r$(echo -n $((CIRCLE_BUILD_NUM%15))) -Dappengine.appId=rvashow2 <<< $JENKINS_PASS
+      - mvn appengine:set_default_version -Dappengine.version=r$(echo -n $((CIRCLE_BUILD_NUM%15))) -Dappengine.appId=rvashow2 <<< $JENKINS_PASS

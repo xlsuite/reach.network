@@ -1,0 +1,44 @@
+*.class
+*.swp
+
+# Package Files #
+# *.jar #
+*.war
+
+# eclipse settings #
+.settings/
+
+# gwt caches and compiled units #
+war/viewer/
+gwt-unitCache/
+
+# boilerplate generated classes #
+.apt_generated/
+
+#compilation logs
+.gwt/
+
+#caching for already compiled files
+gwt-unitCache/
+
+#gwt junit compilation files
+www-test/
+
+#old GWT (1.5) created this dir
+.gwt-tmp/
+
+#Eclipse
+.project
+.classpath
+.externalToolBuilders/
+.settings/
+
+#Maven generated files and directories
+target/
+src/main/java/META-INF/persistence.xml
+src/main/webapp/WEB-INF/classes/
+src/main/webapp/viewer/
+bin/
+
+.idea/
+*.iml

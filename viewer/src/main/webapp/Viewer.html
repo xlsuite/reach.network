@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html  manifest="offline.manifest" itemscope itemtype="http://schema.org/Product" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="google" content="notranslate" />
+    
+    <link rel="icon" href="http://s3.amazonaws.com/Rise-Images/favicons/platform_favicon.ico" type="image/x-icon"> <!-- TODO (Reach.Network): change favicon -->
+    <link rel="shortcut icon" href="http://s3.amazonaws.com/Rise-Images/favicons/platform_favicon.ico" />          <!-- TODO (Reach.Network): change favicon -->
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/mfpgpdablffhbfofnhlpgmokokbahooi">
+
+    <link rel="canonical" href="http://preview.risevision.com/" itemprop="url"> <!--TODO (Reach.Network): change preview site -->
+    <!-- *** RVA App Meta *** -->
+    <title itemprop='name'>Reach.Network | Digital Signage Network Management</title>
+    <meta name="description" content="Manage an Unlimited Number of Displays Anywhere in the World." />
+
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="Reach.Network">
+    <meta itemprop="description" content="Manage an Unlimited Number of Displays Anywhere in the World.">
+    <meta itemprop="image" content="https://s3.amazonaws.com/Rise-Images/landing-page/rv-image.png"> <!--TODO (Reach.Network): change logo URL-->
+    <link rel="publisher" href="https://plus.google.com/+ReachNetwork/">
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@reachnetworkhq">
+    <meta name="twitter:domain" content="http://preview.risevision.com/">  <!--TODO (Reach.Network): change preview site -->
+    <meta name="twitter:title" content="Reach.Network">
+    <meta name="twitter:description" content="Manage an Unlimited Number of Displays Anywhere in the World.">
+    <meta name="twitter:image:src" content="https://s3.amazonaws.com/Rise-Images/landing-page/rv-image.png"> <!--TODO (Reach.Network): change logo URL-->
+    <meta name="twitter:url" content="http://preview.risevision.com/" />
+
+    <!-- Open Graph data -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Reach.Network" />
+    <meta property="og:type" content="product" />
+    <meta property="og:url" content="http://preview.risevision.com/" />   <!--TODO (Reach.Network): change preview site -->
+    <meta property="og:image" content="https://s3.amazonaws.com/Rise-Images/landing-page/rv-image.png" />    <!--TODO (Reach.Network): change logo URL-->
+    <meta property="og:description" content="Manage an Unlimited Number of Displays Anywhere in the World." />
+    <meta property="article:publisher" content="https://www.facebook.com/reachnetworktv">
+    <meta property="fb:admins" content="621077157">   <!--TODO (Reach.Network): clarify this ID -->
+    <meta property="og:site_name" content="Reach.Network">
+
+    <script>
+      function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+        function(m,key,value) {
+          vars[key] = value;
+        });
+        return vars;
+      }
+      (function() {
+        var line1 = '';
+        var w = getUrlVars()['vw'];
+        var h = getUrlVars()['vh'];
+        var viewportEnabled = getUrlVars()['viewport'];
+        if (viewportEnabled === 'false') {
+          line1 = '';
+        } else if (w && h) {
+          line1 = '<meta name="viewport" content="width=' + w +', height=' + h + '">'; 
+        } else {
+          line1 = '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">';
+        }
+        document.write(line1);
+      }());
+    </script>
+      
+  	<link type="text/css" rel="stylesheet" href="../style/viewer.css">
+  </head>
+ 
+  <body style="height: 100%; margin: 0; overflow: hidden;">
+	<div id="log" style="height: 450px; width: 500px; display:none;"></div>
+ 	<div id="progress" style="position:absolute; top:0px; left:0px; z-index:2; width:100%; height:100%; background-color:#434242; opacity:0.6;'">
+		<div style="width:100%;text-align:center; padding-top:250px;"><img src="../images/ajax-loader-circle-notext.gif" /></div>
+ 	</div>
+	<div id="mainDiv" style="position:absolute; height: 100%; width: 100%; top:0px; left:0px;">
+	</div>
+	<div id="channelDiv" style="visibility:hidden;"></div>
+	<div id="gcfInfo" style="visibility:hidden;">
+		<div>In order to Preview using the Internet Explorer browser, please Install the following:</div>
+		<div id="gcfMissing" style="position:absolute;"></div>
+	</div> 
+    
+    <!--                                           -->
+    <!-- This script loads your compiled module.   -->
+    <!-- If you add any GWT meta tags, they must   -->
+    <!-- be added before this line.                -->
+    <!--                                           -->
+    <script type="text/javascript" language="javascript" src="../viewer/viewer.nocache.js"></script>
+
+	<script src="../scripts/jquery-1.10.2.min.js" type="text/javascript"></script>	
+	<script type="text/javascript" language="javascript" src="../scripts/viewerScripts.js"></script>
+	<script type="text/javascript" language="javascript" src="../scripts/ext-logger.js"></script>
+	
+<!--    Manifest checking script -->
+<!--    http://jonathanstark.com/blog/2009/09/27/debugging-html-5-offline-application-cache/ -->
+    
+	<!--[if IE]>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+	<script>
+		// The conditional ensures that this code will only execute in IE,
+		// Therefore we can use the IE-specific attachEvent without worry
+		window.attachEvent("onload", function() {
+			CFInstall.check({
+			  mode: "inline", // the default
+			  node: "gcfMissing",
+			  onmissing: showGCFPrompt
+			});
+		});
+	
+		function showGCFPrompt() {
+			hideElement("progress");
+			hideElement("main");
+			showElement("gcfInfo", false);
+		}
+	</script>
+	<![endif]-->
+
+	<script type="text/javascript">
+	    var _gaq = _gaq || [];
+
+		function initTracker(accountId) {
+		    _gaq.push(['_setAccount', accountId]);
+
+// 		    _gaq.push(['_setAccount', 'UA-82239-27']);
+// 		    _gaq.push(['_setAccount', 'UA-82239-28']);
+		    _gaq.push(['_trackPageview']);
+		}
+		
+		function trackEvent(eventName, eventAction, eventLabel) {
+			_gaq.push(['_trackEvent', eventName, eventAction, eventLabel]);
+		}
+	</script>
+	<script type="text/javascript">  
+		(function() {
+			var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+</body>
+</html>
