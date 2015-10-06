@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
   "name": "Reach.Network Player",
-  "description": "Reach.Network - The Enterprise Digital Signage Platform - Everything you need to create amazing digital signage for free.",
+  "description": "Reach.Network | TV Ad Network Player",
   "author":  {
-    "email": "support@risevision.com" //todo (Reach.Network): change it
+    "email": "hookup@reach.network"
   },  
   "version": "1.0",
   "icons": {
