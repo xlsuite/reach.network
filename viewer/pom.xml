@@ -90,7 +90,6 @@
         <version>${appengine.api.version}</version>
         <configuration>
           <port>8888</port>
-          <email>jenkins@risevision.com</email>
           <oauth2>false</oauth2>
           <noCookies>true</noCookies>
           <passin>true</passin>
