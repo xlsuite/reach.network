@@ -18,7 +18,7 @@ public class HelpFrameWidget extends PopupPanel {
 	private static HelpFrameWidget instance;
 	private AbsolutePanel outerPanel = new AbsolutePanel();
 	private HTML closePanel = new HTML("<span style='cursor:pointer;font-size:26px;'>&times;</span>");
-	private Frame helpFrame = new Frame("http://help.risevision.com/#/user/player/register-player");  /*TODO (Reach.Network): change help URL*/
+	private Frame helpFrame = new Frame("http://help.reach.network");
 	private int w;
 	private int h;
 	

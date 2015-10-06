@@ -82,10 +82,10 @@ A:hover {
 	}
 
 .logo-style {
-	width: 140px;
-	height: 65px;
+	width: 128px;
+	height: 128px;
 /* 	background-color: white; */
-	background-image: url('http://dl.dropbox.com/u/8237394/Images/Logo/rise-logo.png'); /*-TODO (Reach.Network): change icon */
+	background-image: url('http://s3.amazonaws.com/xlsuite_production/assets/19221656/reach_icon_132.png');
 	background-position: 50% 80%;
 	background-repeat: no-repeat no-repeat;
 }
