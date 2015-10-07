@@ -6,8 +6,8 @@ rvConfig = function () {
 
 	var PLAYER_NAME = "ReachNetworkPlayerPackagedApp";
 	
-	var VIEWER_SERVER_PRODUCITON = "http://rvashow.appspot.com"; //todo (Reach.Network): change it
-	var VIEWER_SERVER_TEST = "http://viewer-test.appspot.com";   //todo (Reach.Network): change it
+	var VIEWER_SERVER_PRODUCITON = "https://reachtvnetwork.appspot.com";
+	var VIEWER_SERVER_TEST = "https://reachtvnetwork.appspot.com";
 	var VIEWER_PATH = "/Viewer.html?player=true&type=display&id=";
 
 	this.displayId = "";
