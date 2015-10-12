@@ -1,4 +1,4 @@
-// Copyright © 2010 - May 2014 Rise Vision Incorporated.
+// Copyright ï¿½ 2010 - May 2014 Rise Vision Incorporated.
 // Use of this software is governed by the GPLv3 license
 // (reproduced in the LICENSE file).
 
@@ -372,7 +372,7 @@ rvPlayer = function () {
 			//clearData is still in Dev channel, so using try-catch
 			try {
 				$rv.cache.workers.clearCache();
-				$rv.browser.clearData({since:0}, {
+				$rv.browser.clearData({since: 0}, {
 					appcache: true,
 					//cache: true,
 					cookies: true,
@@ -385,30 +385,31 @@ rvPlayer = function () {
 					//serverBoundCertificates: true,
 					//pluginData: true,
 					//passwords: true,
-					webSQL: true}, function() {
-						console.log("Cache cleared successfully.");
-						restartViewer();
-					});
+					webSQL: true
+				}, function () {
+					console.log("Cache cleared successfully.");
+					restartViewer();
+				});
 			} catch (e) {
 				console.warn("cache clearing failed. Error: " + e.message);
 				restartViewer();
 			}
 		};
 		$rv.browser.addEventListener('contentload', onPageLoad);
-		$rv.browser.src = "data:text/plain,reloading..." //or $rv.browser.src="about:blank"
+		$rv.browser.src = "data:text/plain,reloading..."; //or $rv.browser.src="about:blank"
 	};
-	
-	var reboot = function() {
-		chrome.runtime.getPlatformInfo(function(info) {
-   			if (info.os == "cros") {
-   				log("[reboot]");
-   				chrome.runtime.restart();
-   				//if the app is in non-kiosk mode then as per documentation restart is no-op, and in this case next line restart viewer will be executed.
-   				restartViewer();
-   			} else {
-				log("[reboot - not supported on "+info.os+", instead restarting viewer]");
+
+	var reboot = function () {
+		chrome.runtime.getPlatformInfo(function (info) {
+			if (info.os == "cros") {
+				log("[reboot]");
+				chrome.runtime.restart();
+				//if the app is in non-kiosk mode then as per documentation restart is no-op, and in this case next line restart viewer will be executed.
 				restartViewer();
-	        	}	
+			} else {
+				log("[reboot - not supported on " + info.os + ", instead restarting viewer]");
+				restartViewer();
+			}
 		});
 	};
 	

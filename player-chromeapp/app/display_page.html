@@ -2,15 +2,15 @@
 <head>
     <title>Reach.Network Chrome App Display Control Settings</title>
     <style type="text/css">
-	    .section{
-	        border: 1px solid black;
-	        display: table;
-	        margin: 5px;
-	        padding:5px;
-	    }
+        .section {
+            border: 1px solid black;
+            display: table;
+            margin: 5px;
+            padding: 5px;
+        }
     </style>
     <script type="text/javascript">
-    
+
         var playerApi = "http://localhost:9449/";
 
         function load() {
@@ -18,29 +18,29 @@
             var port = "[PORT]";
             var status = "[Status]";
             var onStr = "[onStr]";
-	    var offStr = "[offStr]";
+            var offStr = "[offStr]";
             if (status == "on") {
                 document.getElementById("rbOn").checked = true;
             } else {
                 document.getElementById("rbOff").checked = true;
             }
             document.getElementById("onStr").value = onStr;
-	    document.getElementById("offStr").value = offStr;
+            document.getElementById("offStr").value = offStr;
 
-	    buildPortPicker(port);
+            buildPortPicker(port);
         }
-        
-	function buildPortPicker(port) { 
-	  var portString = [[PORTS]];  	    
-	  var portPicker = document.getElementById('port-picker');
-	  for(var i = 0; i < portString.length; i++) {
-	    var portOption = document.createElement('option');
-	    portOption.innerHTML = portString[i];
-	    portOption.value = portString[i];
-	    if(portString[i] == port) portOption.defaultSelected = true;
-	    portPicker.appendChild(portOption);
-	  }
-	}
+
+        function buildPortPicker(port) {
+            var portString = [[PORTS]];
+            var portPicker = document.getElementById('port-picker');
+            for (var i = 0; i < portString.length; i++) {
+                var portOption = document.createElement('option');
+                portOption.innerHTML = portString[i];
+                portOption.value = portString[i];
+                if (portString[i] == port) portOption.defaultSelected = true;
+                portPicker.appendChild(portOption);
+            }
+        }
 
 
         function save() {
@@ -53,7 +53,7 @@
             }
             var port = document.getElementById("port-picker").value;
             var onStr = document.getElementById("onStr").value;
-            var offStr= document.getElementById("offStr").value;
+            var offStr = document.getElementById("offStr").value;
 
             call_url(playerApi + "save_dc?port=" + port + "&status=" + status + "&onStr=" + onStr + "&offStr=" + offStr);
         }
@@ -65,7 +65,7 @@
                 alert("Display Control is off");
             }
         }
-        
+
         function dcOff() {
             if (document.getElementById("rbOn").checked) {
                 call_url(playerApi + "set_property?display_command=off");
@@ -106,18 +106,18 @@
             document.getElementById("statusOK").style.display = "none";
             document.getElementById("statusError").style.display = "none";
         }
-        
+
         function arrayToHtmlTable(items) {
             res = "<table border='1' cellpadding='3'>" +
             "<tr><th></th><th>File Name</th><th align='right'>Size</th></tr>";
-            for ( var i = 0; i < items.length; i++) {
+            for (var i = 0; i < items.length; i++) {
                 res += "<tr>" +
-                "<td>" + (i+1) + "</td>" +
+                "<td>" + (i + 1) + "</td>" +
                 "<td>" + items[i].name + "</td>" +
                 "<td align='right'>" + items[i].size + "</td>" +
                 "</tr>";
             }
-            res += "</table>";            
+            res += "</table>";
             console.log(res);
             return res;
         }
@@ -125,11 +125,12 @@
     </script>
 </head>
 <body style="margin: 0px;" onload="load()">
-    <h1>
-        Reach.Network Chrome App Display Control Settings</h1>
-    <div id="statusOK" style="background-color:#0CFF0C; width:200px; text-align:center; display:none;">Success</div>
-    <div id="statusError" style="background-color:Red; width:200px; text-align:center; display:none;">Failure</div>
-    <div class="section">
+<h1>
+    Reach.Network Chrome App Display Control Settings</h1>
+
+<div id="statusOK" style="background-color:#0CFF0C; width:200px; text-align:center; display:none;">Success</div>
+<div id="statusError" style="background-color:Red; width:200px; text-align:center; display:none;">Failure</div>
+<div class="section">
     <table cellpadding="5" cellspacing="0">
         <tr>
             <td>
@@ -144,7 +145,7 @@
                 On Command:
             </td>
             <td>
-                <input id="onStr" type="text" value="[onStr]" />
+                <input id="onStr" type="text" value="[onStr]"/>
             </td>
         </tr>
         <tr>
@@ -152,7 +153,7 @@
                 Off Command:
             </td>
             <td>
-                <input  id="offStr" type="text" value="[offStr]" />
+                <input id="offStr" type="text" value="[offStr]"/>
             </td>
         </tr>
         <tr>
@@ -160,20 +161,21 @@
                 Status:
             </td>
             <td>
-                <input id="rbOn" type="radio" name="server" value="on" checked="checked" />On<br />
-                <input id="rbOff" type="radio" name="server" value="off" />Off<br />
+                <input id="rbOn" type="radio" name="server" value="on" checked="checked"/>On<br/>
+                <input id="rbOff" type="radio" name="server" value="off"/>Off<br/>
             </td>
         </tr>
         <tr>
             <td>
             </td>
             <td style="padding-top:10px">
-            <button onclick="save()">Apply</button>
-            <button onclick="dcOn()">Display On</button>
-            <button onclick="dcOff()">DisplayOff</button><br>
+                <button onclick="save()">Apply</button>
+                <button onclick="dcOn()">Display On</button>
+                <button onclick="dcOff()">DisplayOff</button>
+                <br>
             </td>
         </tr>
     </table>
-    </div>    
+</div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 ﻿// Copyright © 2010 - May 2014 Rise Vision Incorporated.
 // Use of this software is governed by the GPLv3 license
 // (reproduced in the LICENSE file).
+'use strict';
 
 var debugMode = false;
 var gLaunchData;
@@ -81,7 +82,7 @@ function handleOnWinClosed() {
 		chrome.socket.destroy(gLaunchData.sockets[i]);
 	}
 	chrome.power.releaseKeepAwake();
-};
+}
 
 
 chrome.runtime.onUpdateAvailable.addListener(function(details) {
