@@ -6,10 +6,19 @@
   "author": {
     "email": "hookup@reach.network"
   },
-  "version": "1.2",
+  "version": "1.2.2",
   "icons": {
     "16": "icon_16.png",
     "128": "icon_128.png"
+  },
+  "commands": {
+    "command-close": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+1"
+      },
+      "description": "Close the app",
+      "global": true
+    }
   },
   "app": {
     "background": {
@@ -33,5 +42,6 @@
       "socket": ["tcp-listen"]
     }
   ]
+
 }
 

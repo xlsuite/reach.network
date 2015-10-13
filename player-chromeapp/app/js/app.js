@@ -74,7 +74,6 @@ onload = function (e) {
 			btCacheStatus.style.display = "inline";
 			btCacheStatus.onclick = function () {
 				$rv.cache.printStats();
-
 			};
 		}
 	}
