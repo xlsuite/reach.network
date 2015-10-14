@@ -30,7 +30,7 @@ public class ViewerEntryPoint implements EntryPoint {
 //	public static final String EMBED = "embed";
 //	public static final String PREVIEW = "preview";
 	
-	private static final String DEMO_ID = "demo";
+	private static final String DEMO_ID = "RA3ANN8WB8MU";
 	
 	private static final String TYPE_PARAM = "type=";
 	private static final String ID_PARAM = "id=";
