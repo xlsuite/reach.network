@@ -91,7 +91,8 @@ public class PlaceholderVideoController {
 //		"	window.onerror = function (error) {	parent.itemError(\"%s1\"); }" +
 //		"</script>" +
 		"<link href=\"videojs/video-js.css\" rel=\"stylesheet\">" +
-		"<script type=\"text/javascript\" src=\"videojs/video.min.js\"></script>" +		
+			//todo (IL): use minified video.min.js
+		"<script type=\"text/javascript\" src=\"videojs/video.js\"></script>" +
 		"<script type=\"text/javascript\" src=\"scripts/videoScripts.js\"></script>" +
 		"<style>" +
 		"	body { background-color: transparent; -moz-user-select: none; -webkit-user-select: none; -khtml-user-select: none; user-select: none; }" +

@@ -20,6 +20,10 @@ var is_chrome;
 		    window.oncontextmenu = function() {
 				return false;
 			};
+
+            document.onkeypress = function(event) {
+                console.log("Document on KeyPress", event);
+            };
 		};
 		
 	} catch (err) {

@@ -30,7 +30,6 @@ public class DisplayRegisterWidget extends DisplayRegisterBaseWidget {
 		@Override
 		protected void hide() {
 			// TODO Auto-generated method stub
-			
 		}
 	};
 	

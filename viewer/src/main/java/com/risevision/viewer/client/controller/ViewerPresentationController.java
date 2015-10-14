@@ -266,13 +266,14 @@ public class ViewerPresentationController {
 		
 //        top = ViewerUtils.getPositionTop(item.getPosition(), 0, Window.getClientHeight(), height);
 //        left = ViewerUtils.getPositionLeft(item.getPosition(), 0, Window.getClientWidth(), width);
-        
+
 		if (items.get(0).getType().equals(PlaylistItemInfo.TYPE_PRESENTATION)) {
 			ViewerHtmlUtils.addPresentation(htmlName, containerName, width, height, top, left, 
 					presentation.getLayout(), 
 					presentation.getWidth() + presentation.getWidthUnits(), 
 					presentation.getHeight() + presentation.getHeightUnits(),
-					(presentation.getHidePointer() && ViewerEntryPoint.isDisplay()), !ViewerEntryPoint.isDisplay() && !ViewerEntryPoint.isEmbed());
+					(presentation.getHidePointer() && ViewerEntryPoint.isDisplay()),
+					!ViewerEntryPoint.isDisplay() && !ViewerEntryPoint.isEmbed());
 			
 			// set presentation size in the entry point to make it available for Embed IFrame size
 			ViewerEntryPoint.setPresentationSize(presentation.getWidth(), presentation.getHeight());

@@ -814,6 +814,7 @@ _V_.Button = _V_.Control.extend({
 
   // KeyPress (document level) - Trigger click when keys are pressed
   onKeyPress: function(event){
+    console.log("Key pressed", event);
     // Check for space bar (32) or enter (13) keys
     if (event.which == 32 || event.which == 13) {
       event.preventDefault();
@@ -2805,7 +2806,9 @@ _V_.Player = _V_.Component.extend({
 
     this.triggerEvent("enterFullWindow");
   },
+
   fullWindowOnEscKey: function(event){
+    console.log("video.js Keydown was pressed", event);
     if (event.keyCode == 27) {
       if (this.isFullScreen == true) {
         this.cancelFullScreen();
