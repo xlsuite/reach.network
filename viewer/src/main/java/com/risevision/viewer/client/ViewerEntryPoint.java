@@ -4,10 +4,11 @@
 
 package com.risevision.viewer.client;
 
-import java.util.ArrayList;
-
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window.Location;
 import com.risevision.common.client.utils.RiseUtils;
 import com.risevision.viewer.client.cache.RiseCacheController;
@@ -19,6 +20,8 @@ import com.risevision.viewer.client.utils.ViewerHtmlUtils;
 import com.risevision.viewer.client.widgets.ViewerPreviewWidget;
 import com.risevision.viewer.client.widgets.oem.DisplayRegisterWidget;
 import com.risevision.viewer.client.widgets.oem.EnterClaimIdWidget;
+
+import java.util.ArrayList;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -61,16 +64,27 @@ public class ViewerEntryPoint implements EntryPoint {
 	private static Command dataReadyCommand;
 	
 	private static boolean isShowingBlack = false, isShowingProgressBar = true;
-	
+
 	@Override
 	public void onModuleLoad() {
 		// loads static methods to be called through JSNI
 		ViewerHtmlUtils.exportStaticMethods();
-		
+
 		updateParameters();
 		
 //		showBlackScreen(true);
-		
+
+		//Showing dialog on Ctrl+Q
+		Event.addNativePreviewHandler(new Event.NativePreviewHandler() {
+			public void onPreviewNativeEvent(Event.NativePreviewEvent event) {
+				NativeEvent ne = event.getNativeEvent();
+				if (ne.getCtrlKey() && ne.getKeyCode() == KeyCodes.KEY_Q) {
+					//todo: show the new created dialog
+					DisplayRegisterWidget.getInstance().show(NotificationType.display_id_null);
+				}
+			}
+		});
+
 		ViewerHtmlUtils.logExternalMessage("startup", null);
 		
 		//check if no Display ID 

@@ -278,15 +278,15 @@ function createPresentation(frameName, containerName, width, height, top, left, 
                 }
             }
             
-            if (hidePointer) {
-            	var pointerDiv = createNewElement(frameName + '_pointer', 'div', '100%', '100%', 0, 0);
-
-            	if (pointerDiv != null) {
-            		pointerDiv.style.cursor = "url('images/almost_transparent.png'), none";
-            		pointerDiv.style.zIndex = "1000";
-            		document.getElementById(frameName).appendChild(pointerDiv);
-            	}
-            }
+            //if (hidePointer) {
+            //	var pointerDiv = createNewElement(frameName + '_pointer', 'div', '100%', '100%', 0, 0);
+            //
+            //	if (pointerDiv != null) {
+            //		pointerDiv.style.cursor = "url('images/almost_transparent.png'), none";
+            //		pointerDiv.style.zIndex = "1000";
+            //		document.getElementById(frameName).appendChild(pointerDiv);
+            //	}
+            //}
         }
     }
     catch (err) {
