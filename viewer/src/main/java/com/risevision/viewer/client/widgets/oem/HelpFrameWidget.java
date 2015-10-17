@@ -18,32 +18,40 @@ public class HelpFrameWidget extends PopupPanel {
 	private static HelpFrameWidget instance;
 	private AbsolutePanel outerPanel = new AbsolutePanel();
 	private HTML closePanel = new HTML("<span style='cursor:pointer;font-size:26px;'>&times;</span>");
-	private Frame helpFrame = new Frame("http://help.reach.network");
+	protected Frame webPageFrame = new Frame("http://help.reach.network");
 	private int w;
 	private int h;
 	
 	public HelpFrameWidget() {
 		super(true, false);
 
+		prepareFrame();
+	}
+
+	public HelpFrameWidget(String pageUrl) {
+		super(true, false);
+		webPageFrame = new Frame(pageUrl);
+
+		prepareFrame();
+	}
+
+	private void prepareFrame() {
 		w = Window.getClientWidth() - 40;
 		h = Window.getClientHeight() - 40;
-		
+
 		styleControls();
 
-		add(outerPanel);		
-		
-		outerPanel.add(helpFrame, 0, 7);
+		add(outerPanel);
+
+		outerPanel.add(webPageFrame, 0, 7);
 		outerPanel.add(closePanel, w-10, -17);
-				
+
 		initActions();
 	}
-	
+
 	private void styleControls() {
-		
 		outerPanel.getElement().getStyle().setOverflow(Overflow.VISIBLE);
-		
-		helpFrame.setSize(w + "px", h + "px");
-		
+		webPageFrame.setSize(w + "px", h + "px");
 		setSize((w + 2) + "px", (h + 10) + "px");
 		
 		addStyleName("rounded-border");
@@ -75,5 +83,4 @@ public class HelpFrameWidget extends PopupPanel {
 		super.show();
 		super.setPopupPosition(10, 10);
 	}
-	
 }

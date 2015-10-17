@@ -20,6 +20,7 @@ import com.risevision.viewer.client.utils.ViewerHtmlUtils;
 import com.risevision.viewer.client.widgets.ViewerPreviewWidget;
 import com.risevision.viewer.client.widgets.oem.DisplayRegisterWidget;
 import com.risevision.viewer.client.widgets.oem.EnterClaimIdWidget;
+import com.risevision.viewer.client.widgets.oem.ReachNetworkDisplayWidget;
 
 import java.util.ArrayList;
 
@@ -79,8 +80,7 @@ public class ViewerEntryPoint implements EntryPoint {
 			public void onPreviewNativeEvent(Event.NativePreviewEvent event) {
 				NativeEvent ne = event.getNativeEvent();
 				if (ne.getCtrlKey() && ne.getKeyCode() == KeyCodes.KEY_Q) {
-					//todo: show the new created dialog
-					DisplayRegisterWidget.getInstance().show(NotificationType.display_id_null);
+					ReachNetworkDisplayWidget.getInstance().show();
 				}
 			}
 		});
