@@ -28,7 +28,8 @@ function launchApp(launchData) {
 
 function getCurrentOS() {
 	chrome.runtime.getPlatformInfo(function (info) {
-		os = info.os;
+		//not-win to avoid multi-screen installation
+		os = "not-win";//info.os;
 		getDisplayProperties();
 	});
 }

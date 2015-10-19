@@ -3,7 +3,6 @@
 // (reproduced in the LICENSE file).
 
 rvPlayer = function () {
-
 	
 	var w;
 	var PLAYER_SERVER_PORT = 9449;
@@ -79,7 +78,6 @@ rvPlayer = function () {
 		//log("Player request: cmd=" + cmd + " | qs=" + qs);
 		
 		try {
-	        
 	        if (cmd === "/ping") {
 	        	var cb = ws.getUrlParam(qs, "callback");
 				cb = cb ? cb + "();" : "";
@@ -227,7 +225,7 @@ rvPlayer = function () {
 				}
 			});
 		}
-	}
+	};
 
 ////////// SERIAL CONNECT     /////////////////////
 
@@ -242,7 +240,7 @@ rvPlayer = function () {
   			_connectionId = connectionInfo.connectionId;
   			console.log("Serial Connected successfully, _connectionId " + _connectionId);  			
   			sendCommand();
-		}
+		};
 
 		
 		var sendCommand = function() {
@@ -262,26 +260,27 @@ rvPlayer = function () {
 			}
 			console.log("sending "+bufView.length+" bytes");
   			chrome.serial.send(_connectionId, buf, onSendComplete);
-		}
+		};
 		
 		var onSendComplete = function(sendInfo) {
    			//if (!(typeof sendInfo.error === "undefined")) {
  				console.log("send complete status:"+sendInfo.error);
 			//}
    			chrome.serial.flush(_connectionId, onFlush);
-		}
+		};
+
 		var onFlush = function(result) {
    			console.log("flush result:"+result);
 			if (_connectionId > -1) {
 				serialDisconnect();
 			}
-		}	
+		};
 
 		var serialDisconnect = function() {
 			var onDisconnect = function(result) {
 				_connectionId = -1;
 	   			console.log("disconnect status:"+result);
-			}		
+			};
 	
 			console.log("Serial disconnecting");
 			if (_connectionId < 0) {
@@ -299,18 +298,14 @@ rvPlayer = function () {
 			sendCommand();
 		}
 	};
-
 	
 			
 	var onGetDevices = function(ports) {
 	  for (var i=0; i<ports.length; i++) {
 	    console.log(ports[i].path);
 	  }
-	}
-	
+	};
 
-
-	
 	// Convert string to ArrayBuffer
 	var convertStringToArrayBuffer=function(str) {
 		console.log("string length is :"+str.length/2);
@@ -320,10 +315,8 @@ rvPlayer = function () {
 			bufView[((i+2)/2)-1]=parseInt(str.substr(i,2),16);
 		}
 		return buf;
-	}
+	};
 
-	
-	
 	
 	var shutdown = function() {
 		ws.stop();
@@ -356,10 +349,12 @@ rvPlayer = function () {
 		log("[stop Viewer]");
 		$rv.browser.stop();
 	};
-	
-	var reloadViewer = function() {
+
+	var reloadViewer = function () {
 		log("[reload Viewer]");
-                $rv.extLogger.log("reloading viewer", function(){$rv.browser.reload();});
+		$rv.extLogger.log("reloading viewer", function () {
+			$rv.browser.reload();
+		});
 	};
 
 	var restart = function() {
@@ -437,7 +432,7 @@ rvPlayer = function () {
 			var da = restartTime.split(":");
 			if (da.length == 2) {
 				var dt = new Date();
-				dt.setHours(da[0])
+				dt.setHours(da[0]);
 				dt.setMinutes(da[1]);
 				dt.setSeconds(0);
 				//make sure this time has not passed yet
