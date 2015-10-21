@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>Video Widget</title>
+
+  <script src="../../src/components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <script src="../../src/components/web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../../src/components/rise-storage/rise-storage.html">
+
+  <link rel="stylesheet" type="text/css" href="../../src/widget/css/video.css">
+  <link rel="stylesheet" type="text/css" href="../../src/components/widget-common/dist/css/video-frame.css">
+  <link rel="stylesheet" href="../../src/components/widget-common/dist/css/message.css">
+</head>
+<body>
+
+<rise-storage id="videoStorage" refresh="5"></rise-storage>
+
+<div id="videoContainer">
+  <div id="if_0" class="frameContainer"></div>
+</div>
+
+<div id="messageContainer"></div>
+
+<script src="../data/storage.js"></script>
+
+<script src="../../node_modules/widget-tester/mocks/gadget-mocks.js"></script>
+
+<script src="../../src/config/test.js"></script>
+<script src="../../src/widget/video.js"></script>
+<script src="../../src/widget/storage.js"></script>
+<script src="../../src/components/widget-common/dist/video.js"></script>
+<script src="../../src/components/widget-common/dist/message.js"></script>
+<script src="../../src/widget/main.js"></script>
+
+<script>
+  suite("Video Widget", function() {
+
+    var storage = document.querySelector("rise-storage"),
+      responded = false,
+      listener;
+
+    suite("Storage Initialization - file added", function () {
+      var check = function(done) {
+        if (responded) {
+          done();
+        }
+        else {
+          setTimeout(function() {
+            check(done)
+          }, 1000);
+        }
+      },
+        onInitStub = sinon.stub(RiseVision.Video, "onStorageInit", function(){});
+
+      suiteSetup(function() {
+        listener = function(response) {
+          responded = true;
+          storage.removeEventListener("rise-storage-response", listener);
+        };
+
+        sinon.stub(storage.$.ping, "generateRequest", function () {
+          storage._handlePingError();
+        });
+
+        storage.addEventListener("rise-storage-response", listener);
+
+      });
+
+      suiteTeardown(function() {
+        storage.$.ping.generateRequest.restore();
+        RiseVision.Video.onStorageInit.restore();
+      });
+
+      // Don't run the tests until rise-storage-response has fired.
+      setup(function (done) {
+        check(done);
+      });
+
+      test("should set folder attribute of storage component", function() {
+        assert.equal(storage.folder, "Widgets/videos/");
+      });
+      test("should set filename attribute of storage component", function() {
+        assert.equal(storage.filename, "a_food_show.webm");
+      });
+      test("should set companyid attribute of storage component", function() {
+        assert.equal(storage.companyid, "b428b4e8-c8b9-41d5-8a10-b4193c789443");
+      });
+      test("should set env attribute of storage component", function() {
+        assert.equal(storage.env, config.STORAGE_ENV);
+      });
+      test("RiseVision.Video.onStorageInit should be called", function() {
+        assert(onInitStub.calledOnce);
+      });
+    });
+
+    suite("Storage Refresh - file changed", function() {
+      var onRefreshStub = sinon.stub(RiseVision.Video, "onStorageRefresh", function(){});
+
+      suiteSetup(function() {
+        storage.dispatchEvent(new CustomEvent("rise-storage-response", {
+          "detail": {
+            "changed": true,
+            "url": "https://storage.googleapis.com/risemedialibrary-b428b4e8-c8b9-41d5-8a10-b4193c789443/Widgets%2Fvideos%2Fbig_buck_bunny.webm"
+          },
+          "bubbles": true
+        }));
+      });
+
+      suiteTeardown(function() {
+        RiseVision.Video.onStorageRefresh.restore();
+      });
+
+      test("RiseVision.Video.onStorageRefresh called when file changed", function() {
+        assert(onRefreshStub.calledOnce);
+      });
+
+    });
+
+  });
+</script>
+</body>
+</html>

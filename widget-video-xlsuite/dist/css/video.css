@@ -1,0 +1,88 @@
+/* =========================================================================
+   CSS Reset
+   ========================================================================== */
+
+/*! normalize.css v3.0.1 | MIT License | git.io/normalize */
+
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS text size adjust after orientation change,
+ *    without disabling user zoom.
+ */
+
+html {
+  /* Visual */
+  font-family: sans-serif; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/**
+ * Remove default margin.
+ */
+body {
+  /* Display & Box Model */
+  margin: 0;
+}
+
+/**
+ * 1. Correct `inline-block` display not defined in IE 8/9.
+ * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ */
+video {
+  display: inline-block; /* 1 */
+  vertical-align: baseline; /* 2 */
+}
+
+
+/* =========================================================================
+Custom Styling
+========================================================================== */
+
+body {
+  /* Visual */
+  background-color: transparent;
+}
+
+#videoContainer {
+  /* Positioning */
+  position: relative;
+  background-color: #000000;
+}
+
+
+.frameContainer {
+  /* Positioning */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+
+  /* Display & Box Model */
+  width: 100%;
+  height: 100%;
+}
+
+.frameContainer iframe {
+  /* Positioning */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  /* Display & Box Model */
+  width: 100%;
+  height: 100%;
+}
+#messageContainer {
+    display: none; /* hide by default */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.message {
+    text-align: center;
+    vertical-align: middle;
+}

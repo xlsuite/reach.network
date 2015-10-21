@@ -1,0 +1,45 @@
+{
+  "name": "widget-video",
+  "version": "1.0.0",
+  "description": "Rise Vision Video Widget",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "gulp test",
+    "build": "gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rise-Vision/widget-video.git"
+  },
+  "author": "Rise Vision",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/Rise-Vision/widget-video/issues"
+  },
+  "homepage": "https://github.com/Rise-Vision/widget-video",
+  "devDependencies": {
+    "bower": "^1.5.3",
+    "chai": "~1.9.2",
+    "chai-as-promised": "~4.1.1",
+    "colors": "~1.0.3",
+    "del": "~1.1.1",
+    "gulp": "~3.8.3",
+    "gulp-bower": "~0.0.10",
+    "gulp-bump": "~0.1.8",
+    "gulp-concat": "^2.2.0",
+    "gulp-html2js": "^0.2.0",
+    "gulp-jshint": "~1.5.5",
+    "gulp-minify-css": "0.3.4",
+    "gulp-rename": "~1.2.0",
+    "gulp-usemin": "0.3.7",
+    "run-sequence": "^0.3.2",
+    "gulp-sourcemaps": "^1.2.2",
+    "gulp-uglify": "^0.3.1",
+    "gulp-util": "~2.2.17",
+    "gulp-watch": "^0.6.8",
+    "jshint-stylish": "^0.2.0",
+    "phantomjs": "^1.9.7-9",
+    "web-component-tester": "*",
+    "widget-tester": "git://github.com/Rise-Vision/widget-tester.git#0.1.0"
+  }
+}

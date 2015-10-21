@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video Widget</title>
+
+  <script src="components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="components/rise-storage/rise-storage.html">
+
+  <!-- build:css css/video.min.css -->
+  <link rel="stylesheet" type="text/css" href="widget/css/video.css">
+  <link rel="stylesheet" type="text/css" href="components/widget-common/dist/css/video-frame.css">
+  <link rel="stylesheet" href="components/widget-common/dist/css/message.css">
+  <!-- endbuild -->
+
+</head>
+<body>
+
+  <rise-storage id="videoStorage" refresh="5"></rise-storage>
+
+  <div id="videoContainer">
+    <div id="if_0" class="frameContainer"></div>
+  </div>
+
+  <div id="messageContainer"></div>
+
+  <script src="//rvashow2.appspot.com/gadgets/gadgets.min.js"></script>
+
+  <!-- build:js js/widget.min.js -->
+  <script src="config/config.js"></script>
+  <script src="widget/video.js"></script>
+  <script src="widget/storage.js"></script>
+  <script src="components/widget-common/dist/video.js"></script>
+  <script src="components/widget-common/dist/message.js"></script>
+  <script src="widget/main.js"></script>
+  <script src="widget/analytics.js"></script>
+  <!-- endbuild -->
+</body>
+</html>
