@@ -177,15 +177,15 @@ RiseVision.Video = (function (gadgets) {
         _additionalParams.width = _prefs.getInt("rsW");
         _additionalParams.height = _prefs.getInt("rsH");
 
-        _message = new RiseVision.Common.Message(document.getElementById("videoContainer"),
-          document.getElementById("messageContainer"));
-
-        // show wait message while Storage initializes
-        _message.show("Please wait while your video is downloaded.");
+        //_message = new RiseVision.Common.Message(document.getElementById("videoContainer"),
+        //  document.getElementById("messageContainer"));
+        //
+        //// show wait message while Storage initializes
+        //_message.show("Please wait while your video is downloaded.");
 
         _frameController = new RiseVision.Common.Video.FrameController();
 
-        _isStorageFile = (Object.keys(_additionalParams.storage).length !== 0);
+        _isStorageFile = false; //(Object.keys(_additionalParams.storage).length !== 0);
 
         if (!_isStorageFile) {
           str = _additionalParams.url.split("?");
@@ -197,8 +197,8 @@ RiseVision.Video = (function (gadgets) {
 
         } else {
           // create and initialize the Storage module instance
-          _storage = new RiseVision.Video.Storage(_additionalParams);
-          _storage.init();
+          //_storage = new RiseVision.Video.Storage(_additionalParams);
+          //_storage.init();
         }
 
         _ready();

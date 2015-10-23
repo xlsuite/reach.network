@@ -95,7 +95,7 @@ function PlayerJW() {
   this.getVideoFileType = function (url) {
     var extensions = [".mp4", ".webm", ".ogg", ".ogv"],
       urlLowercase = url.toLowerCase(),
-      type = null,
+      type = "",
       i;
 
     for (i = 0; i <= extensions.length; i += 1) {
@@ -114,12 +114,13 @@ function PlayerJW() {
 
   this.loadVideo = function() {
     jwplayer("player").setup({
-      file: file,
+      file: "https://www.youtube.com/watch?v=P5_GlAOCHyE",
       type: this.getVideoFileType(file),
       width : width,
       height : height,
       controls: false,
-      stretching : stretching,
+      stretching : "uniform",
+      primary: "player",
       skin: skin
     });
 
@@ -128,6 +129,8 @@ function PlayerJW() {
     });
 
     jwplayer().onReady(function () {
+   //   jwplayer().play(true);
+
       var elements = document.getElementById("player").getElementsByTagName("*"),
         total = elements.length,
         i;
@@ -153,9 +156,9 @@ function PlayerJW() {
 
       jwplayer().setVolume(volume);
 
-      if (controls && !autoPlay) {
-        jwplayer().setControls(true);
-      }
+      //if (controls && !autoPlay) {
+      //  jwplayer().setControls(true);
+      //}
 
       readyEvent();
 
@@ -167,15 +170,15 @@ function PlayerJW() {
       if (controls && !jwplayer().getControls()) {
         // Will be first time player is being told to play so doing this here and not in setup so that controls
         // aren't visible upon playing for the first time.
-        jwplayer().setControls(true);
+  //      jwplayer().setControls(true);
       }
 
       jwplayer().play();
 
       if (controls) {
         // workaround for controls remaining visible, turn them off and on again
-        jwplayer().setControls(false);
-        jwplayer().setControls(true);
+        //jwplayer().setControls(false);
+        //jwplayer().setControls(true);
       }
     }
   };
