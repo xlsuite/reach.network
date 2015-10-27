@@ -168,7 +168,8 @@ public class ViewerDataController extends ViewerDataControllerBase {
 			
 			break;
 		case ViewerStatus.ID_SHARING_VIOLATION:
-			showDisplayRegistration(NotificationType.display_id_duplicate);
+			//do nothing due we are allowing display sharing
+		    //showDisplayRegistration(NotificationType.display_id_duplicate);
 
 			break;
 		case ViewerStatus.DISPLAY_NOT_FOUND:
