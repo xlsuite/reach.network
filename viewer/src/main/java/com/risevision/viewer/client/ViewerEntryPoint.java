@@ -14,12 +14,9 @@ import com.risevision.common.client.utils.RiseUtils;
 import com.risevision.viewer.client.cache.RiseCacheController;
 import com.risevision.viewer.client.controller.ViewerScheduleController;
 import com.risevision.viewer.client.data.ViewerDataController;
-import com.risevision.viewer.client.info.NotificationType;
 import com.risevision.viewer.client.player.RisePlayerController;
 import com.risevision.viewer.client.utils.ViewerHtmlUtils;
 import com.risevision.viewer.client.widgets.ViewerPreviewWidget;
-import com.risevision.viewer.client.widgets.oem.DisplayRegisterWidget;
-import com.risevision.viewer.client.widgets.oem.EnterClaimIdWidget;
 import com.risevision.viewer.client.widgets.oem.ReachNetworkDisplayWidget;
 
 import java.util.ArrayList;
@@ -34,7 +31,7 @@ public class ViewerEntryPoint implements EntryPoint {
 //	public static final String EMBED = "embed";
 //	public static final String PREVIEW = "preview";
 	
-	private static final String DEMO_ID = "RA3ANN8WB8MU";
+	private static final String DEMO_ID = "BQHM8GRCU7KQ";
 	
 	private static final String TYPE_PARAM = "type=";
 	private static final String ID_PARAM = "id=";
@@ -87,17 +84,18 @@ public class ViewerEntryPoint implements EntryPoint {
 
 		ViewerHtmlUtils.logExternalMessage("startup", null);
 		
-		//check if no Display ID 
-		if (RisePlayerController.getIsActive() &&  isDisplay() && !isEmbed() && DEMO_ID.equals(id)) {
-			if (claimId != null && !claimId.isEmpty()) {
-				EnterClaimIdWidget.getInstance(false).show(false);
-			} else {
-				DisplayRegisterWidget.getInstance().show(NotificationType.display_id_null);
-			}			
-		} else {
-			loadPresentation();
-		}
-		
+		//check if no Display ID - commented due we want to show display ID
+//		if (RisePlayerController.getIsActive() && isDisplay() && !isEmbed() && DEMO_ID.equals(id)) {
+//			if (claimId != null && !claimId.isEmpty()) {
+//				EnterClaimIdWidget.getInstance(false).show(false);
+//			} else {
+//				DisplayRegisterWidget.getInstance().show(NotificationType.display_id_null);
+//			}
+//		} else {
+//			loadPresentation();
+//		}
+
+		loadPresentation();
 	}
 
 	public static void loadPresentation(){
