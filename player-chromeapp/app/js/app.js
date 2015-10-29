@@ -25,7 +25,7 @@ onload = function (e) {
 	var indicator = document.querySelector(".indicator");
 
 	$rv.browser.addEventListener("loadstart", function() {
-		indicator.innerText = "Loading...";
+		indicator.innerText = "";
 	});
 
 	$rv.browser.addEventListener("loadstop", function() {
