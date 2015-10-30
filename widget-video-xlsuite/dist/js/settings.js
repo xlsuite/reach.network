@@ -28575,6 +28575,7 @@ angular.module("risevision.widget.video.settings")
     params: {},
     additionalParams: {
       url: "",
+      displayId: "DISPLAY_ID",
       storage: {},
       video: {
         scaleToFit: true,

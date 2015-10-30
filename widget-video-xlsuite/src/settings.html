@@ -33,7 +33,7 @@
             <div class="sticky-wrapper">
               <widget-button-toolbar
                 save="saveSettings()" cancel="closeSettings()" disable-save="settingsForm.$invalid"
-                contribute="https://github.com/Rise-Vision/widget-video"></widget-button-toolbar>
+                contribute="https://github.com/xlsuite/reach.network"></widget-button-toolbar>
             </div>
           </div>
           <form role="form" name="settingsForm">
@@ -43,6 +43,9 @@
                        storage-type="single-file"
                        file-type="video"
                        ng-model="videourlentry" valid></url-field>
+
+            <label>Display ID</label>
+            <input name="display-id" type="text" ng-model="settings.additionalParams.displayId"/>
             <!-- Video -->
             <div class="section">
               <h5>{{"video.heading" | translate}}</h5>
