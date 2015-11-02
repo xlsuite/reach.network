@@ -177,32 +177,20 @@ RiseVision.Video = (function (gadgets) {
         _additionalParams.width = _prefs.getInt("rsW");
         _additionalParams.height = _prefs.getInt("rsH");
 
-        //_message = new RiseVision.Common.Message(document.getElementById("videoContainer"),
-        //  document.getElementById("messageContainer"));
-        //
-        //// show wait message while Storage initializes
-        //_message.show("Please wait while your video is downloaded.");
-
         _frameController = new RiseVision.Common.Video.FrameController();
 
-        _isStorageFile = false; //(Object.keys(_additionalParams.storage).length !== 0);
+        _isStorageFile = false;
 
-        if (!_isStorageFile) {
-          str = _additionalParams.url.split("?");
+        str = _additionalParams.url.split("?");
 
-          // store this for the refresh timer
-          _separator = (str.length === 1) ? "?" : "&";
+        // store this for the refresh timer
+        _separator = (str.length === 1) ? "?" : "&";
+        _currentFile = _additionalParams.url;
 
-          _currentFile = _additionalParams.url;
-
-        } else {
-          // create and initialize the Storage module instance
-          //_storage = new RiseVision.Video.Storage(_additionalParams);
-          //_storage.init();
-        }
-
-        _ready();
-
+        loadVideoLinkFromXLSuite(function (videoUrl) {
+          _currentFile = videoUrl;
+          _ready();
+        });
       }
     }
   }

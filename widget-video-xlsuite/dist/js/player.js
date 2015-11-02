@@ -1,3 +1,5 @@
+'use strict';
+
 var file;
 var controls, volume, autoPlay, stretching;
 var width, height, skin;
@@ -114,7 +116,7 @@ function PlayerJW() {
 
   this.loadVideo = function() {
     jwplayer("player").setup({
-      file: "https://www.youtube.com/watch?v=P5_GlAOCHyE",
+      file: file,
       type: this.getVideoFileType(file),
       width : width,
       height : height,
@@ -129,8 +131,6 @@ function PlayerJW() {
     });
 
     jwplayer().onReady(function () {
-   //   jwplayer().play(true);
-
       var elements = document.getElementById("player").getElementsByTagName("*"),
         total = elements.length,
         i;

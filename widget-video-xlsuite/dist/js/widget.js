@@ -13,6 +13,35 @@ if (typeof config === "undefined") {
   }
 }
 
+'use strict';
+
+function loadVideoLinkFromXLSuite(callback) {
+  var apiKey = "2ae45fc2-72b9-45ce-9771-caf0fabf9c97";
+  var displayKey = "12345";
+
+  callback("https://www.youtube.com/watch?v=P5_GlAOCHyE");
+
+  //$.ajax({
+  //  url: "http://reach.network/admin/api/liquids/call?api_key=" + apiKey + "&tag=load_screen&display_key=" + displayKey
+  //}).then(function (data) {
+  //  var chanelUrl = data.screen.channel_url;
+  //  callback("https://www.youtube.com/watch?v=P5_GlAOCHyE");
+  //  //todo: set to some settings
+  //});
+
+  /*
+   {
+   "screen": {
+   "display_key": "12345",
+   "description": null,
+   "name": "Test screen",
+   "channel_url": "https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ"
+   }
+   }
+   */
+
+}
+
 /* global gadgets, config */
 
 var RiseVision = RiseVision || {};
@@ -192,32 +221,20 @@ RiseVision.Video = (function (gadgets) {
         _additionalParams.width = _prefs.getInt("rsW");
         _additionalParams.height = _prefs.getInt("rsH");
 
-        //_message = new RiseVision.Common.Message(document.getElementById("videoContainer"),
-        //  document.getElementById("messageContainer"));
-        //
-        //// show wait message while Storage initializes
-        //_message.show("Please wait while your video is downloaded.");
-
         _frameController = new RiseVision.Common.Video.FrameController();
 
-        _isStorageFile = false; //(Object.keys(_additionalParams.storage).length !== 0);
+        _isStorageFile = false;
 
-        if (!_isStorageFile) {
-          str = _additionalParams.url.split("?");
+        str = _additionalParams.url.split("?");
 
-          // store this for the refresh timer
-          _separator = (str.length === 1) ? "?" : "&";
+        // store this for the refresh timer
+        _separator = (str.length === 1) ? "?" : "&";
+        _currentFile = _additionalParams.url;
 
-          _currentFile = _additionalParams.url;
-
-        } else {
-          // create and initialize the Storage module instance
-          //_storage = new RiseVision.Video.Storage(_additionalParams);
-          //_storage.init();
-        }
-
-        _ready();
-
+        loadVideoLinkFromXLSuite(function (videoUrl) {
+          _currentFile = videoUrl;
+          _ready();
+        });
       }
     }
   }
