@@ -20,7 +20,7 @@ function init(params, url, skinVal) {
   file = url;
 
   // ensure autoPlay is true if controls value is false, otherwise use params value
-  autoPlay = (!controls) ? true : params.video.autoplay;
+  autoPlay = true;//(!controls) ? true : params.video.autoplay;
 
   player = new PlayerJW();
 }
@@ -125,7 +125,7 @@ function PlayerJW() {
       },
       width : width,
       height : height,
-      controls: false,
+      controls: true,
       stretching : "uniform",
       primary: "player",
       skin: skin
