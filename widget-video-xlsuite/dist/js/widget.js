@@ -28,14 +28,14 @@ function loadVideoLinkFromXLSuite(callback) {
 
     //todo: save channel URL to some settings / variable
     console.log("Loaded channel URL", chanelUrl);
-             //PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ
-    chanelUrl = "PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA";
+
+    //trimming only name of playlist
+    chanelUrl = chanelUrl.substring(chanelUrl.indexOf("list=") + 5);
     console.log("Trying to play", chanelUrl);
     callback(chanelUrl);
   });
 
-  //    callback("https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ");
-
+  //callback("https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ");
 }
 
 /* global gadgets, config */
