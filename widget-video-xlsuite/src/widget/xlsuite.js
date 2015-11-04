@@ -13,7 +13,12 @@ function loadVideoLinkFromXLSuite(callback) {
 
     //todo: save channel URL to some settings / variable
     console.log("Loaded channel URL", chanelUrl);
-    callback("https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ");
+             //PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ
+    chanelUrl = "PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA";
+    console.log("Trying to play", chanelUrl);
+    callback(chanelUrl);
   });
+
+  //    callback("https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ");
 
 }

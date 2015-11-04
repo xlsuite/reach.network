@@ -116,8 +116,13 @@ function PlayerJW() {
 
   this.loadVideo = function() {
     jwplayer("player").setup({
-      file: file,
-      type: this.getVideoFileType(file),
+      "file":"use-tubey",
+      "type":"mp4",
+      "plugins": {
+        "components/tubey/tubey.js":{
+          "playlist": file
+        }
+      },
       width : width,
       height : height,
       controls: false,

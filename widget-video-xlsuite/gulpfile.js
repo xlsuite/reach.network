@@ -106,6 +106,7 @@
       "src/components/polymer/*.*{html,js}",
       "src/components/promise-polyfill/*.*{html,js}",
       "src/components/iron-ajax/*.*{html,js}",
+      "src/components/tubey/*.js",
       "src/components/underscore/*.js"
     ], {base: "./src/"})
       .pipe(gulp.dest("dist/"));
