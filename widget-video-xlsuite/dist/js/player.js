@@ -47,19 +47,7 @@ function errorEvent(data) {
   }
 }
 
-function playYoutubeEmbedded() {
-  var $mainIframe = document.getElementById("mainIframe");//$('#mainIframe');
-  //$mainIframe.attr('src', file);
-  //$mainIframe.attr('width', width);
-  //$mainIframe.attr('height', height);
-
-  $mainIframe.setAttribute('src', file);
-  $mainIframe.setAttribute('width', width);
-  $mainIframe.setAttribute('height', height);
-}
-
 function play() {
- // playYoutubeEmbedded();
   player.play();
 }
 

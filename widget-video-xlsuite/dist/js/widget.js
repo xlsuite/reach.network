@@ -32,6 +32,9 @@ function loadVideoLinkFromXLSuite(callback) {
     var fullUrl = chanelUrl + "&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0";
 
     callback(fullUrl);
+
+    //my - https://www.youtube.com/playlist?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA
+    //https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA
   });
 
 }
@@ -65,6 +68,8 @@ RiseVision.Video = (function (gadgets) {
 
   var _noFileTimer = null,
     _noFileFlag = false;
+
+  var _playlistChangeTimer = null;
 
   /*
    *  Private Methods
@@ -203,6 +208,26 @@ RiseVision.Video = (function (gadgets) {
     }
   }
 
+  function startPlaylistChangeTimer() {
+    clearTimeout(_playlistChangeTimer);
+
+    _playlistChangeTimer = setInterval(function () {
+      console.log("Interval check");
+
+      loadVideoLinkFromXLSuite(function (videoUrl) {
+
+        videoUrl = "https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0";
+
+        if (videoUrl != _currentFile) {
+          _currentFile = videoUrl;
+          var $mainIframe = $('#mainIframe');
+          $mainIframe.attr('src', _currentFile);
+        }
+      });
+
+    }, 5000);
+  }
+
   function setAdditionalParams(names, values) {
     var str;
 
@@ -233,6 +258,8 @@ RiseVision.Video = (function (gadgets) {
           $mainIframe.attr('src', _currentFile);
           $mainIframe.attr('width', _additionalParams.width);
           $mainIframe.attr('height', _additionalParams.height);
+
+          startPlaylistChangeTimer();
 
           _ready();
         });

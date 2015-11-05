@@ -17,6 +17,9 @@ function loadVideoLinkFromXLSuite(callback) {
     var fullUrl = chanelUrl + "&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0";
 
     callback(fullUrl);
+
+    //my - https://www.youtube.com/playlist?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA
+    //https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA
   });
 
 }
