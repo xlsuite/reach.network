@@ -178,7 +178,7 @@ function PlayerJW() {
   //      jwplayer().setControls(true);
       }
 
-      jwplayer().play();
+//      jwplayer().play();
 
       if (controls) {
         // workaround for controls remaining visible, turn them off and on again

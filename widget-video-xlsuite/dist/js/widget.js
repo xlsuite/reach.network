@@ -24,18 +24,32 @@ function loadVideoLinkFromXLSuite(callback) {
   $.ajax({
     url: "https://rn.xlsuite.com/admin/api/liquids/call?api_key=" + apiKey + "&tag=load_screen&display_key=" + displayKey
   }).then(function (data) {
-    var chanelUrl = data.screen.channel_url;
+    var chanelUrl = data.screen.channel_url;  //https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ
 
     //todo: save channel URL to some settings / variable
     console.log("Loaded channel URL", chanelUrl);
 
     //trimming only name of playlist
-    chanelUrl = chanelUrl.substring(chanelUrl.indexOf("list=") + 5);
-    console.log("Trying to play", chanelUrl);
+  //  chanelUrl = chanelUrl.substring(chanelUrl.indexOf("list=") + 5);
+  //  console.log("Trying to play", chanelUrl);
+
+  //  $("#videoEmbed").add("div");
+
+ //   var url = "https://www.youtube.com/embed/" + videoID;
+    $('#mainIframe').attr('src', chanelUrl
+    + "&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0");
+
     callback(chanelUrl);
   });
 
   //callback("https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ");
+
+  /*
+   <iframe width="560" height="315" src="
+   https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA
+   &amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+   */
+
 }
 
 /* global gadgets, config */
