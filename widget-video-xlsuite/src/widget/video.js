@@ -116,6 +116,7 @@ RiseVision.Video = (function (gadgets) {
   }
 
   function play() {
+    console.log("Play event ");
     var frameObj = _frameController.getFrameObject(_currentFrame);
 
     _viewerPaused = false;
@@ -189,6 +190,12 @@ RiseVision.Video = (function (gadgets) {
 
         loadVideoLinkFromXLSuite(function (videoUrl) {
           _currentFile = videoUrl;
+
+          var $mainIframe = $('#mainIframe');
+          $mainIframe.attr('src', _currentFile);
+          $mainIframe.attr('width', _additionalParams.width);
+          $mainIframe.attr('height', _additionalParams.height);
+
           _ready();
         });
       }

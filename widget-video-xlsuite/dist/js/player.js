@@ -47,7 +47,19 @@ function errorEvent(data) {
   }
 }
 
+function playYoutubeEmbedded() {
+  var $mainIframe = document.getElementById("mainIframe");//$('#mainIframe');
+  //$mainIframe.attr('src', file);
+  //$mainIframe.attr('width', width);
+  //$mainIframe.attr('height', height);
+
+  $mainIframe.setAttribute('src', file);
+  $mainIframe.setAttribute('width', width);
+  $mainIframe.setAttribute('height', height);
+}
+
 function play() {
+ // playYoutubeEmbedded();
   player.play();
 }
 
@@ -116,15 +128,10 @@ function PlayerJW() {
 
   this.loadVideo = function() {
     jwplayer("player").setup({
-      "file":"use-tubey",
+      "file":"",
       "type":"mp4",
-      "plugins": {
-        "components/tubey/tubey.js":{
-          "playlist": file
-        }
-      },
-      width : width,
-      height : height,
+      width : 0,
+      height : 0,
       controls: true,
       stretching : "uniform",
       primary: "player",

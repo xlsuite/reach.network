@@ -14,10 +14,9 @@ function loadVideoLinkFromXLSuite(callback) {
     //todo: save channel URL to some settings / variable
     console.log("Loaded channel URL", chanelUrl);
 
-    $('#mainIframe').attr('src', chanelUrl
-    + "&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0");
+    var fullUrl = chanelUrl + "&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0";
 
-    callback(chanelUrl);
+    callback(fullUrl);
   });
 
 }

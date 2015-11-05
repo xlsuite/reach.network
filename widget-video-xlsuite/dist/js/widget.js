@@ -29,26 +29,10 @@ function loadVideoLinkFromXLSuite(callback) {
     //todo: save channel URL to some settings / variable
     console.log("Loaded channel URL", chanelUrl);
 
-    //trimming only name of playlist
-  //  chanelUrl = chanelUrl.substring(chanelUrl.indexOf("list=") + 5);
-  //  console.log("Trying to play", chanelUrl);
+    var fullUrl = chanelUrl + "&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0";
 
-  //  $("#videoEmbed").add("div");
-
- //   var url = "https://www.youtube.com/embed/" + videoID;
-    $('#mainIframe').attr('src', chanelUrl
-    + "&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0");
-
-    callback(chanelUrl);
+    callback(fullUrl);
   });
-
-  //callback("https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ");
-
-  /*
-   <iframe width="560" height="315" src="
-   https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA
-   &amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-   */
 
 }
 
@@ -170,6 +154,7 @@ RiseVision.Video = (function (gadgets) {
   }
 
   function play() {
+    console.log("Play event ");
     var frameObj = _frameController.getFrameObject(_currentFrame);
 
     _viewerPaused = false;
@@ -243,6 +228,12 @@ RiseVision.Video = (function (gadgets) {
 
         loadVideoLinkFromXLSuite(function (videoUrl) {
           _currentFile = videoUrl;
+
+          var $mainIframe = $('#mainIframe');
+          $mainIframe.attr('src', _currentFile);
+          $mainIframe.attr('width', _additionalParams.width);
+          $mainIframe.attr('height', _additionalParams.height);
+
           _ready();
         });
       }
