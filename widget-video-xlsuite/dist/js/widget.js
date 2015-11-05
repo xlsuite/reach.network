@@ -159,7 +159,7 @@ RiseVision.Video = (function (gadgets) {
   }
 
   function play() {
-    console.log("Play event ");
+  //  console.log("Play event ");
     var frameObj = _frameController.getFrameObject(_currentFrame);
 
     _viewerPaused = false;
@@ -215,8 +215,7 @@ RiseVision.Video = (function (gadgets) {
       console.log("Interval check");
 
       loadVideoLinkFromXLSuite(function (videoUrl) {
-
-        videoUrl = "https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0";
+      //  videoUrl = "https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0";
 
         if (videoUrl != _currentFile) {
           _currentFile = videoUrl;
