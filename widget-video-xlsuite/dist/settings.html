@@ -33,29 +33,24 @@
             </div>
           </div>
           <form role="form" name="settingsForm">
-            <!-- URL -->
-            <url-field id="videoUrl" name="videoUrl" url="settings.additionalParams.url"
-                       company-id="{{settings.params.companyId}}"
-                       storage-type="single-file"
-                       file-type="video"
-                       ng-model="videourlentry" valid></url-field>
-
-            <label>Display ID</label>
-            <input name="display-id" type="text" ng-model="settings.additionalParams.displayId"/>
+            <div class="form-group">
+              <label style="padding-right: 7px">Display ID</label>
+              <input name="display-id" type="text" ng-model="settings.additionalParams.displayId"/>
+            </div>
             <!-- Video -->
             <div class="section">
               <h5>{{"video.heading" | translate}}</h5>
               <!-- Scale To Fit -->
-              <div class="checkbox">
-                <label>
-                  <input name="video-scale" type="checkbox" ng-model="settings.additionalParams.video.scaleToFit"> {{"widgets.scale-to-fit" | translate}}
-                </label>
-              </div>
+              <!--<div class="checkbox">-->
+                <!--<label>-->
+                  <!--<input name="video-scale" type="checkbox" ng-model="settings.additionalParams.video.scaleToFit"> {{"widgets.scale-to-fit" | translate}}-->
+                <!--</label>-->
+              <!--</div>-->
               <!-- Volume -->
-              <label>{{"video.volume.label" | translate}}</label>
-              <div>
-                <slider orientation="horizontal" handle="round" ng-model="settings.additionalParams.video.volume" min="0" step="1" max="100"></slider>
-              </div>
+              <!--<label>{{"video.volume.label" | translate}}</label>-->
+              <!--<div>-->
+                <!--<slider orientation="horizontal" handle="round" ng-model="settings.additionalParams.video.volume" min="0" step="1" max="100"></slider>-->
+              <!--</div>-->
               <!-- Use Controls -->
               <div class="checkbox">
                 <label>

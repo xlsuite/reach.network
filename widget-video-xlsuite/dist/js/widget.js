@@ -15,11 +15,11 @@ if (typeof config === "undefined") {
 
 'use strict';
 
-function loadVideoLinkFromXLSuite(callback) {
+function loadVideoLinkFromXLSuite(displayKey, callback) {
   var apiKey = "2ae45fc2-72b9-45ce-9771-caf0fabf9c97";
 
-  //todo: get display key from settings
-  var displayKey = "12345";
+  console.log("displayKey param", displayKey);
+ // displayKey = "12345";
 
   $.ajax({
     url: "https://rn.xlsuite.com/admin/api/liquids/call?api_key=" + apiKey + "&tag=load_screen&display_key=" + displayKey
@@ -62,6 +62,8 @@ RiseVision.Video = (function (gadgets) {
 
   var _separator = "",
     _currentFile = "";
+
+  var displayId;
 
   var _refreshDuration = 900000,  // 15 minutes
     _refreshIntervalId = null;
@@ -214,9 +216,7 @@ RiseVision.Video = (function (gadgets) {
     _playlistChangeTimer = setInterval(function () {
       console.log("Interval check");
 
-      loadVideoLinkFromXLSuite(function (videoUrl) {
-      //  videoUrl = "https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0";
-
+      loadVideoLinkFromXLSuite(displayId, function (videoUrl) {
         if (videoUrl != _currentFile) {
           _currentFile = videoUrl;
           var $mainIframe = $('#mainIframe');
@@ -228,8 +228,6 @@ RiseVision.Video = (function (gadgets) {
   }
 
   function setAdditionalParams(names, values) {
-    var str;
-
     if (Array.isArray(names) && names.length > 0 && names[0] === "additionalParams") {
       if (Array.isArray(values) && values.length > 0) {
         _additionalParams = JSON.parse(values[0]);
@@ -244,13 +242,9 @@ RiseVision.Video = (function (gadgets) {
 
         _isStorageFile = false;
 
-        str = _additionalParams.url.split("?");
+        displayId = _additionalParams.displayId;
 
-        // store this for the refresh timer
-        _separator = (str.length === 1) ? "?" : "&";
-        _currentFile = _additionalParams.url;
-
-        loadVideoLinkFromXLSuite(function (videoUrl) {
+        loadVideoLinkFromXLSuite(displayId, function (videoUrl) {
           _currentFile = videoUrl;
 
           var $mainIframe = $('#mainIframe');

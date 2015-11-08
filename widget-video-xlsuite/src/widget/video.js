@@ -22,8 +22,12 @@ RiseVision.Video = (function (gadgets) {
   var _separator = "",
     _currentFile = "";
 
+  var displayId;
+
   var _refreshDuration = 900000,  // 15 minutes
     _refreshIntervalId = null;
+
+  var xlSuitePlaylistRefreshDuration = 5000; //5 sec
 
   var _noFileTimer = null,
     _noFileFlag = false;
@@ -173,9 +177,7 @@ RiseVision.Video = (function (gadgets) {
     _playlistChangeTimer = setInterval(function () {
       console.log("Interval check");
 
-      loadVideoLinkFromXLSuite(function (videoUrl) {
-      //  videoUrl = "https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0";
-
+      loadVideoLinkFromXLSuite(displayId, function (videoUrl) {
         if (videoUrl != _currentFile) {
           _currentFile = videoUrl;
           var $mainIframe = $('#mainIframe');
@@ -183,12 +185,10 @@ RiseVision.Video = (function (gadgets) {
         }
       });
 
-    }, 5000);
+    }, xlSuitePlaylistRefreshDuration);
   }
 
   function setAdditionalParams(names, values) {
-    var str;
-
     if (Array.isArray(names) && names.length > 0 && names[0] === "additionalParams") {
       if (Array.isArray(values) && values.length > 0) {
         _additionalParams = JSON.parse(values[0]);
@@ -203,13 +203,9 @@ RiseVision.Video = (function (gadgets) {
 
         _isStorageFile = false;
 
-        str = _additionalParams.url.split("?");
+        displayId = _additionalParams.displayId;
 
-        // store this for the refresh timer
-        _separator = (str.length === 1) ? "?" : "&";
-        _currentFile = _additionalParams.url;
-
-        loadVideoLinkFromXLSuite(function (videoUrl) {
+        loadVideoLinkFromXLSuite(displayId, function (videoUrl) {
           _currentFile = videoUrl;
 
           var $mainIframe = $('#mainIframe');
