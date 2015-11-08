@@ -19,12 +19,11 @@ function loadVideoLinkFromXLSuite(displayKey, callback) {
   var apiKey = "2ae45fc2-72b9-45ce-9771-caf0fabf9c97";
 
   console.log("displayKey param", displayKey);
- // displayKey = "12345";
 
   $.ajax({
     url: "https://rn.xlsuite.com/admin/api/liquids/call?api_key=" + apiKey + "&tag=load_screen&display_key=" + displayKey
   }).then(function (data) {
-    var chanelUrl = data.screen.channel_url;  //https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ
+    var chanelUrl = data.screen.channel_url;
 
     //todo: save channel URL to some settings / variable
     console.log("Loaded channel URL", chanelUrl);
@@ -33,8 +32,8 @@ function loadVideoLinkFromXLSuite(displayKey, callback) {
 
     callback(fullUrl);
 
-    //my - https://www.youtube.com/playlist?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA
-    //https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA
+    //RN - https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ
+    //my - https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA
   });
 
 }
@@ -67,6 +66,8 @@ RiseVision.Video = (function (gadgets) {
 
   var _refreshDuration = 900000,  // 15 minutes
     _refreshIntervalId = null;
+
+  var xlSuitePlaylistRefreshDuration = 5000; //5 sec
 
   var _noFileTimer = null,
     _noFileFlag = false;
@@ -224,7 +225,7 @@ RiseVision.Video = (function (gadgets) {
         }
       });
 
-    }, 5000);
+    }, xlSuitePlaylistRefreshDuration);
   }
 
   function setAdditionalParams(names, values) {
