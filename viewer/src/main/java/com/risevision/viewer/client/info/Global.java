@@ -9,7 +9,7 @@ import java.util.Date;
 public class Global {
   public static final String ENV = "prod";
   
-  public static final String VIEWER_VERSION = "1-06-04";
+  public static final String VIEWER_VERSION = "1-06-06";
   public static final String GADGET_SERVER_URL = "http://www-open-opensocial.googleusercontent.com/gadgets/ifr";
   public static final String SERVER_URL;
   public static final String DATA_SERVER_URL;

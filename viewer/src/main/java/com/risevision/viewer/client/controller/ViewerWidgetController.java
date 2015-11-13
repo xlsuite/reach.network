@@ -11,6 +11,7 @@ import com.risevision.common.client.info.PlaceholderInfo;
 import com.risevision.common.client.info.PlaylistItemInfo;
 import com.risevision.common.client.info.PresentationInfo;
 import com.risevision.common.client.utils.PresentationParser;
+import com.risevision.viewer.client.ViewerEntryPoint;
 import com.risevision.viewer.client.utils.ViewerHtmlUtils;
 
 public class ViewerWidgetController implements ViewerControllerInterface {
@@ -103,11 +104,15 @@ public class ViewerWidgetController implements ViewerControllerInterface {
 		urlParams += "&parent=" + URL.encodeQueryString(Window.Location.getHref());
 		urlParams += "&up_rsW=" + width;
 		urlParams += "&up_rsH=" + height;
-		
+
+		String displayId = ViewerEntryPoint.getDisplayId();
+		if (displayId != null && !displayId.isEmpty()) {
+			urlParams += "&up_displayId=" + displayId;
+		}
+
 		urlParams = urlParams.replace("'", "\\'");
 		
 		return urlParams;
-			
 	}
 	
 	public void setReady(String presFrame, boolean canPlay, boolean canStop, boolean canPause, boolean canReportReady, boolean canReportDone) {
