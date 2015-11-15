@@ -203,22 +203,36 @@ RiseVision.Video = (function (gadgets) {
 
         _isStorageFile = false;
 
-        displayId = _additionalParams.displayId;
+        if (_prefs.getString("displayId")) {
+          displayId = _prefs.getString("displayId");
+          console.log("displayId set from chromeApp param", displayId);
+        } else {
+          displayId = _additionalParams.displayId;
+          console.log("displayId set from default settings", displayId);
+        }
 
-        loadVideoLinkFromXLSuite(displayId, function (videoUrl) {
-          _currentFile = videoUrl;
-
-          var $mainIframe = $('#mainIframe');
-          $mainIframe.attr('src', _currentFile);
-          $mainIframe.attr('width', _additionalParams.width);
-          $mainIframe.attr('height', _additionalParams.height);
-
-          startPlaylistChangeTimer();
-
-          _ready();
+        loadVideoLinkFromXLSuite(displayId, startXLSuitePlayer, function() {
+          if (displayId != _prefs.getString("displayId")) {
+            displayId = _additionalParams.displayId;
+            console.log("Trying to use default displayId", displayId);
+            loadVideoLinkFromXLSuite(displayId, startXLSuitePlayer);
+          }
         });
       }
     }
+  }
+
+  function startXLSuitePlayer(videoUrl) {
+    _currentFile = videoUrl;
+
+    var $mainIframe = $('#mainIframe');
+    $mainIframe.attr('src', _currentFile);
+    $mainIframe.attr('width', _additionalParams.width);
+    $mainIframe.attr('height', _additionalParams.height);
+
+    startPlaylistChangeTimer();
+
+    _ready();
   }
 
   function playerError(error) {

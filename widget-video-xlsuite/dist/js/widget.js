@@ -15,7 +15,7 @@ if (typeof config === "undefined") {
 
 'use strict';
 
-function loadVideoLinkFromXLSuite(displayKey, callback) {
+function loadVideoLinkFromXLSuite(displayKey, successCallback, errorCallback) {
   var apiKey = "2ae45fc2-72b9-45ce-9771-caf0fabf9c97";
 
   console.log("displayKey param", displayKey);
@@ -23,6 +23,14 @@ function loadVideoLinkFromXLSuite(displayKey, callback) {
   $.ajax({
     url: "https://rn.xlsuite.com/admin/api/liquids/call?api_key=" + apiKey + "&tag=load_screen&display_key=" + displayKey
   }).then(function (data) {
+    if (!data || !data.screen) {
+      console.log("Error - Returned data is empty", data);
+      if (errorCallback) {
+        errorCallback();
+      }
+      return;
+    }
+
     var chanelUrl = data.screen.channel_url;
 
     //todo: save channel URL to some settings / variable
@@ -30,7 +38,7 @@ function loadVideoLinkFromXLSuite(displayKey, callback) {
 
     var fullUrl = chanelUrl + "&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0";
 
-    callback(fullUrl);
+    successCallback(fullUrl);
 
     //RN - https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ
     //my - https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA
@@ -243,22 +251,36 @@ RiseVision.Video = (function (gadgets) {
 
         _isStorageFile = false;
 
-        displayId = _additionalParams.displayId;
+        if (_prefs.getString("displayId")) {
+          displayId = _prefs.getString("displayId");
+          console.log("displayId set from chromeApp param", displayId);
+        } else {
+          displayId = _additionalParams.displayId;
+          console.log("displayId set from default settings", displayId);
+        }
 
-        loadVideoLinkFromXLSuite(displayId, function (videoUrl) {
-          _currentFile = videoUrl;
-
-          var $mainIframe = $('#mainIframe');
-          $mainIframe.attr('src', _currentFile);
-          $mainIframe.attr('width', _additionalParams.width);
-          $mainIframe.attr('height', _additionalParams.height);
-
-          startPlaylistChangeTimer();
-
-          _ready();
+        loadVideoLinkFromXLSuite(displayId, startXLSuitePlayer, function() {
+          if (displayId != _prefs.getString("displayId")) {
+            displayId = _additionalParams.displayId;
+            console.log("Trying to use default displayId", displayId);
+            loadVideoLinkFromXLSuite(displayId, startXLSuitePlayer);
+          }
         });
       }
     }
+  }
+
+  function startXLSuitePlayer(videoUrl) {
+    _currentFile = videoUrl;
+
+    var $mainIframe = $('#mainIframe');
+    $mainIframe.attr('src', _currentFile);
+    $mainIframe.attr('width', _additionalParams.width);
+    $mainIframe.attr('height', _additionalParams.height);
+
+    startPlaylistChangeTimer();
+
+    _ready();
   }
 
   function playerError(error) {
