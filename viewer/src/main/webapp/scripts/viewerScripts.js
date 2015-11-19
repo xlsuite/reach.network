@@ -281,7 +281,14 @@ function createPresentation(frameName, containerName, width, height, top, left, 
             if (hidePointer) {
             	var pointerDiv = createNewElement(frameName + '_pointer', 'div', '100%', '100%', 0, 0);
 
+                var _this = this;
+
             	if (pointerDiv != null) {
+                    //showScreenIdDialog
+                    pointerDiv.oncontextmenu = function (ev) {
+                        _this.showScreenIdDialog();
+                    };
+
             		pointerDiv.style.zIndex = "999";
             		document.getElementById(frameName).appendChild(pointerDiv);
             	}

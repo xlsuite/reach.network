@@ -77,7 +77,7 @@ public class ViewerEntryPoint implements EntryPoint {
 			public void onPreviewNativeEvent(Event.NativePreviewEvent event) {
 				NativeEvent ne = event.getNativeEvent();
 				if (ne.getCtrlKey() && ne.getKeyCode() == KeyCodes.KEY_Q) {
-					ReachNetworkDisplayWidget.getInstance().show();
+					showDisplayEnteringDialog();
 				}
 			}
 		});
@@ -97,10 +97,14 @@ public class ViewerEntryPoint implements EntryPoint {
 
 		//if no ID entered - show display entering dialog
 		if (DEMO_ID.equals(id)) {
-			ReachNetworkDisplayWidget.getInstance().show();
+			showDisplayEnteringDialog();
 		} else {
 			loadPresentation();
 		}
+	}
+
+	private static void showDisplayEnteringDialog() {
+		ReachNetworkDisplayWidget.getInstance().show();
 	}
 
 	public static void loadPresentation(){

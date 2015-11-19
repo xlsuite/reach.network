@@ -4,9 +4,6 @@
 
 package com.risevision.viewer.client.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.gwt.core.client.JsArrayString;
 import com.risevision.common.client.utils.RiseUtils;
 import com.risevision.viewer.client.ViewerEntryPoint;
@@ -15,6 +12,9 @@ import com.risevision.viewer.client.controller.ViewerGadgetController;
 import com.risevision.viewer.client.data.ViewerDataController;
 import com.risevision.viewer.client.data.ViewerDataParser;
 import com.risevision.viewer.client.info.Global;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewerHtmlUtils {
 	public static final String PARAM_DISPLAY_ID = "displayId";
@@ -163,6 +163,9 @@ public class ViewerHtmlUtils {
 		
 		$wnd.getEmbedItemData =
 		$entry(@com.risevision.viewer.client.data.ViewerDataController::getEmbedData(Ljava/lang/String;Ljava/lang/String;));
+
+		$wnd.showScreenIdDialog =
+		$entry(@com.risevision.viewer.client.ViewerEntryPoint::showDisplayEnteringDialog());
 
 		$wnd.embedPlay =
 		$entry(@com.risevision.viewer.client.ViewerEntryPoint::embedPlay());
