@@ -29,7 +29,11 @@ onload = function (e) {
 	});
 
 	$rv.browser.addEventListener("loadstop", function() {
-		indicator.innerText = "";
+		if ($rv.config.displayId) {
+			indicator.innerText = "";
+		} else {
+			indicator.innerText = "Press Ctrl+Q to enter Display ID; Ctrl+W to exit";
+		}
 	});
 
     $rv.browser.addEventListener('exit', function(e) {

@@ -143,6 +143,12 @@ rvPlayer = function () {
 		    			restartViewer();
 		    		}
 	    		});
+
+				var indicator = document.querySelector(".indicator");
+				if (!$rv.config.displayId) {
+					indicator.innerText = "";
+				}
+
 				ws.writeTextResponse(socketId, "", keepAlive, ws.CONTENT_TYPE_TEXT_PLAIN);
 	        } else if (cmd === "/save_dc") {
 	            
