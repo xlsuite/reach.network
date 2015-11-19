@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.risevision.viewer.client.ViewerEntryPoint;
 import com.risevision.viewer.client.player.RisePlayerController;
 
 public class ReachNetworkDisplayWidget extends DisplayRegisterBaseWidget {
@@ -17,7 +18,7 @@ public class ReachNetworkDisplayWidget extends DisplayRegisterBaseWidget {
     private HorizontalPanel hpButtons2 = new HorizontalPanel();
 
     private Button btEnterDisplayId = new DisplayRegisterButtonWidget("Enter Display ID");
-    private Button btEnterClaimId = new DisplayRegisterButtonWidget("Enter Claim ID");
+    private Button btPlayDemo = new DisplayRegisterButtonWidget("Play DEMO");
     private Button btQuit = new DisplayRegisterButtonWidget("Quit");
     private Button btRegister = new DisplayRegisterButtonWidget("Register");
 
@@ -28,7 +29,7 @@ public class ReachNetworkDisplayWidget extends DisplayRegisterBaseWidget {
         styleControls();
 
         hpButtons1.add(btEnterDisplayId);
-        hpButtons1.add(btEnterClaimId);
+        hpButtons1.add(btPlayDemo);
 
         hpButtons2.add(btQuit);
         hpButtons2.add(btRegister);
@@ -58,11 +59,13 @@ public class ReachNetworkDisplayWidget extends DisplayRegisterBaseWidget {
                 RisePlayerController.shutdown();
             }
         });
-        btEnterClaimId.addClickHandler(new ClickHandler() {
+        btPlayDemo.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
                 stopCountdownTimer();
-                EnterClaimIdWidget.getInstance(false).show();
+                hide();
+                ViewerEntryPoint.loadPresentation();
+//                EnterClaimIdWidget.getInstance(false).show();
             }
         });
         btEnterDisplayId.addClickHandler(new ClickHandler() {

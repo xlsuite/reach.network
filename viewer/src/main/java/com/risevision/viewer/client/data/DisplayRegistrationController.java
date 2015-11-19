@@ -43,7 +43,6 @@ public class DisplayRegistrationController {
 	}
 
 	private static void processResponse(JavaScriptObject jso, String mode) {
-
 		int errorCode;
 		String newDisplayId;
 

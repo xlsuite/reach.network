@@ -34,28 +34,27 @@ public class ViewerDataController extends ViewerDataControllerBase {
 	public static int MINUTE_UPDATE_INTERVAL = 60 * 1000;
 
 	public static Command channelCommand;
-	
+
 	public static void init(Command newDataReadyCommand, String type, String id) {
 		dataReadyCommand = newDataReadyCommand;
 		initObjects();
-	
+
 		if (ViewerEntryPoint.isEmbed()) {
 			reportDataReady(getEmbedDataNative(ViewerEntryPoint.getId(), ViewerEntryPoint.getParentId()));
-		}
+//		}
 //		else if (type.equals(ViewerEntryPoint.PREVIEW)) {
 //			getPreviewDataNative();
 //		}
-		else {
+		} else {
 			// [AD] moved this function to after the data is retrieved - workaround for Core bug 
 			// where the Viewer API and Channel Token calls can't be made at the same time 
 //			channelController.init(channelCommand);
-			
+
 			if (ViewerEntryPoint.isDisplay() && !ViewerEntryPoint.isEmbed()) {
 				ViewerInstanceController.init();
-                        }
+			}
 
 			ViewerDataProvider.retrieveData(ViewerDataProvider.Reason.VIEWER_INIT.toString());
-			
 		}
 	}
 	

@@ -95,7 +95,12 @@ public class ViewerEntryPoint implements EntryPoint {
 //			loadPresentation();
 //		}
 
-		loadPresentation();
+		//if no ID entered - show display entering dialog
+		if (DEMO_ID.equals(id)) {
+			ReachNetworkDisplayWidget.getInstance().show();
+		} else {
+			loadPresentation();
+		}
 	}
 
 	public static void loadPresentation(){
