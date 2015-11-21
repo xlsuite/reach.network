@@ -32,7 +32,7 @@ onload = function (e) {
 		if ($rv.config.displayId) {
 			indicator.innerText = "";
 		} else {
-			indicator.innerText = "Press Ctrl+Q to enter Display ID; Ctrl+W to exit";
+			indicator.innerText = "Ctrl+Q or right-click on the screen to enter Display ID; Ctrl+W to exit";
 		}
 	});
 
