@@ -382,7 +382,7 @@
 
 	this.writeResponse_End = function(socketId, keepAlive) {
 	  try {
-		console.log("WRITE_END socketId=" + socketId + " | " + socketInfo.socketId + " | keepAlive=" + keepAlive)
+		console.log("WRITE_END socketId=" + socketId + " | " + socketInfo.socketId + " | keepAlive=" + keepAlive);
 		if (keepAlive) {
 			readFromSocket(socketId);
 		} else {
@@ -418,8 +418,11 @@
                                 if (chrome.runtime.lastError) {
                                   $rv.extLogger.log("socket listen error");
                                   console.log("socket listen error: " + chrome.runtime.lastError.message);
+
+								  //todo: remove error details after fixing the issue
                                   $rv.messageWindow("The player could not listen on port " + port +
-                                  ". A player or other application may already be using that port.");
+                                  ". A player or other application may already be using that port." +
+								  "\nError was: " + chrome.runtime.lastError.message);
                                   setTimeout(function() {window.close();}, 5500);
                                   return;
                                 }
