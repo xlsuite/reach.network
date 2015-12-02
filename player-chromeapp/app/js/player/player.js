@@ -30,29 +30,28 @@ rvPlayer = function () {
 			configPage.init();	
 		});
 	};
-		
-	this.init = function() {	
-	   try {	
+
+	this.init = function() {
+	   try {
 		ws = new rvWebServer(PLAYER_SERVER_PORT, onRequest);
 		ws.start();
-		
+
 		watchdog = new rvWatchdog();
 		watchdog.start(reloadViewer);
-		
+
 		setDisplayControlConfig();
 
-		
 		dcPage = new rvPlayerDCPage();
 		dcPage.init();
-		
+
 		startTimer_CheckForUpdate();
-		
+
 		if (!$rv.debug) {
 			startViewerWithDelay();
 		}
 	   } catch (e) {
 	        console.log("rvplayer:init error" + e.message);
-	   } 
+	   }
 	};
 
 
@@ -88,42 +87,40 @@ rvPlayer = function () {
 	        	var cb = ws.getUrlParam(qs, "callback");
 				cb = cb ? cb + "();" : "";
 				ws.writeTextResponse(socketId, cb, keepAlive, ws.CONTENT_TYPE_JAVASCRIPT);
-	        	
-	        } else if (cmd === "/set_property") {
-	    		if ("true" === (ws.getUrlParam(qs, "reboot_required"))) {
-	    			log("reboot_required received");
-                                $rv.extLogger.log("reboot_required received", reboot);
-	    		} else if ("true" === (ws.getUrlParam(qs, "restart_required"))) {
-	    			log("restart_required received");
-                                $rv.extLogger.log("restart_required received", restart);
-	    		} else if ("true" === (ws.getUrlParam(qs, "update_required"))) {
-	    			log("update_required received");
-                                $rv.extLogger.log("update_required received", checkForUpdate);
-	    		} else	if ("true" === (ws.getUrlParam(qs, "reboot_enabled"))) {
-	    			var rebootTime = ws.getUrlParam(qs, "reboot_time");
-	    			if (rebootTime) {
-		    			setRestartTime(rebootTime); //time to restart (not reboot)
-	    			} else {
-	    				console.warn("reboot_time param is missing (reboot_enabled=true)");
-	    			}
-	    		} else if ("off" === (ws.getUrlParam(qs, "display_command"))) {
-	    			if($rv.config.dcStatus === "on") {
-		    			log("display displayStandby off received");
-                                        $rv.extLogger.log("display_standby_off received");
-		    			displayStandby(false);
-	    			}
-	    		} else if ("on" === (ws.getUrlParam(qs, "display_command"))) {
-	    			if($rv.config.dcStatus === "on") {
-		    			log("display displayStandby on received");
-                                        $rv.extLogger.log("display_standby_on received");
-		    			displayStandby(true);
-		    		}
-	    		}
-	    		var rotation = ws.getUrlParam(qs, "orientation");
-	    		if (rotation != undefined) {
-	    			log("setting rotation to " + rotation);
-	    			setOrientation(rotation);
-	    		}
+
+			} else if (cmd === "/set_property") {
+				if ("true" === (ws.getUrlParam(qs, "reboot_required"))) {
+					log("reboot_required received");
+					reboot();
+				} else if ("true" === (ws.getUrlParam(qs, "restart_required"))) {
+					log("restart_required received");
+					restart();
+				} else if ("true" === (ws.getUrlParam(qs, "update_required"))) {
+					log("update_required received");
+					checkForUpdate();
+				} else if ("true" === (ws.getUrlParam(qs, "reboot_enabled"))) {
+					var rebootTime = ws.getUrlParam(qs, "reboot_time");
+					if (rebootTime) {
+						setRestartTime(rebootTime); //time to restart (not reboot)
+					} else {
+						console.warn("reboot_time param is missing (reboot_enabled=true)");
+					}
+				} else if ("off" === (ws.getUrlParam(qs, "display_command"))) {
+					if ($rv.config.dcStatus === "on") {
+						log("display displayStandby off received");
+						displayStandby(false);
+					}
+				} else if ("on" === (ws.getUrlParam(qs, "display_command"))) {
+					if ($rv.config.dcStatus === "on") {
+						log("display displayStandby on received");
+						displayStandby(true);
+					}
+				}
+				var rotation = ws.getUrlParam(qs, "orientation");
+				if (rotation != undefined) {
+					log("setting rotation to " + rotation);
+					setOrientation(rotation);
+				}
 				ws.writeTextResponse(socketId, "", keepAlive, ws.CONTENT_TYPE_TEXT_PLAIN);
 	        } else if (cmd === "/save_property") {
 	            
@@ -167,19 +164,19 @@ rvPlayer = function () {
 			ws.writeTextResponse(socketId, "", keepAlive, ws.CONTENT_TYPE_TEXT_PLAIN);	    		
 			serialDisconnect();
 	        } else if (cmd === "/clear") {
-	    		$rv.config.clearStorage();
+				$rv.config.clearStorage();
 				ws.writeTextResponse(socketId, "", keepAlive, ws.CONTENT_TYPE_TEXT_PLAIN);
 			} else if (cmd === "/restart") {
 				log("restart command received");
-                                $rv.extLogger.log("restart command received", restart);
+				restart();
 			} else if (cmd === "/reboot") {
 				log("reboot command received");
-                                $rv.extLogger.log("reboot command received", reboot);
-	        } else if (cmd === "/shutdown") {
+				reboot();
+			} else if (cmd === "/shutdown") {
 				log("shutdown command received");
-                                $rv.extLogger.log("shutdown command received", shutdown);
+				shutdown();
 				//ws.writeTextResponse(socketId, "", keepAlive, ws.CONTENT_TYPE_TEXT_PLAIN);
-	        } else if (cmd === "/config") {
+			} else if (cmd === "/config") {
 	        	//var configHTML = rvGetConfigPageHtml($rv.config.displayId, $rv.config.claimId, $rv.config.server)
 	        	var configHTML = configPage.get($rv.config.displayId, $rv.config.claimId, $rv.config.server, $rv.config.viewerServer);
 				ws.writeTextResponse(socketId, configHTML, keepAlive, ws.CONTENT_TYPE_TEXT_HTML);
@@ -195,8 +192,7 @@ rvPlayer = function () {
 				ws.writeErrorResponse(socketId, ws.HTTP_BAD_REQUEST_TEXT, keepAlive);
 	        }
 		} catch (e) {
-    			log("rvplayer:onRequest error" + e.message);
-                        $rv.extLogger.log("onRequest error");
+			log("rvplayer:onRequest error" + e.message);
 			ws.writeErrorResponse(socketId, keepAlive, ws.HTTP_BAD_REQUEST_TEXT);
 		}
         
@@ -358,9 +354,10 @@ rvPlayer = function () {
 
 	var reloadViewer = function () {
 		log("[reload Viewer]");
-		$rv.extLogger.log("reloading viewer", function () {
+		ws.stop();
+		setTimeout(function () {
 			$rv.browser.reload();
-		});
+		}, 2000);
 	};
 
 	var restart = function() {

@@ -409,23 +409,23 @@
 			console.error("requestCallback is not defined");
 			return;
 		}
-
-		socket.create("tcp", {}, function(_socketInfo) {
+		socket.create("tcp", {}, function (_socketInfo) {
 			console.log("socket created:", _socketInfo);
 			socketInfo = _socketInfo;
 			$rv.onSocketCreated(socketInfo.socketId);
-			socket.listen(socketInfo.socketId, "127.0.0.1", port, 50, function(result) {
-                                if (chrome.runtime.lastError) {
-                                  $rv.extLogger.log("socket listen error");
-                                  console.log("socket listen error: " + chrome.runtime.lastError.message);
+			socket.listen(socketInfo.socketId, "127.0.0.1", port, 50, function (result) {
+				if (chrome.runtime.lastError) {
+					console.log("socket listen error: " + chrome.runtime.lastError.message);
 
-								  //todo: remove error details after fixing the issue
-                                  $rv.messageWindow("The player could not listen on port " + port +
-                                  ". A player or other application may already be using that port." +
-								  "\nError was: " + chrome.runtime.lastError.message);
-                                  setTimeout(function() {window.close();}, 5500);
-                                  return;
-                                }
+					//todo: remove error details after fixing the issue
+					$rv.messageWindow("The player could not listen on port " + port +
+					". A player or other application may already be using that port." +
+					"\nError was: " + chrome.runtime.lastError.message);
+					setTimeout(function () {
+						window.close();
+					}, 15000);
+					return;
+				}
 				console.log("LISTENING:", result);
 				//Accept the first response
 				socket.accept(socketInfo.socketId, onAccept);

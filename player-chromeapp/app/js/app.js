@@ -92,17 +92,15 @@ onload = function (e) {
 };
 
 var onConfigLoad = function () {
-
 	try {
-		$rv.extLogger = new rvExtLogger();
-		$rv.extLogger.log("launch from " + $rv.config.launchSource);
+		console.log("launch from " + $rv.config.launchSource);
 
 		$rv.cache = new rvCache();
 		$rv.cache.init($rv.config);
 
 		$rv.player = new rvPlayer();
 		$rv.player.init($rv.config);
-		$rv.extLogger.log("player initialized");
+		console.log("player initialized");
 
 		resizeBrowser();
 	} catch (e) {
