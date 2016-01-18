@@ -36,7 +36,11 @@ function loadVideoLinkFromXLSuite(displayKey, successCallback, errorCallback) {
     //todo: save channel URL to some settings / variable
     console.log("Loaded channel URL", chanelUrl);
 
-    var fullUrl = chanelUrl + "&amp;autoplay=1&amp;controls=0&amp;showinfo=0 frameborder=0";
+    var fullUrl = chanelUrl +
+      "&amp;autoplay=1" +
+      "&amp;loop=1" +
+      "&amp;controls=0" +
+      "&amp;showinfo=0 frameborder=0";
 
     successCallback(fullUrl);
 
@@ -237,10 +241,16 @@ RiseVision.Video = (function (gadgets) {
   }
 
   function setAdditionalParams(names, values) {
+    console.log("additional params values", values);
     if (Array.isArray(names) && names.length > 0 && names[0] === "additionalParams") {
       if (Array.isArray(values) && values.length > 0) {
         _additionalParams = JSON.parse(values[0]);
         _prefs = new gadgets.Prefs();
+
+        if (!_additionalParams) {
+          _additionalParams = {};
+          console.log("additional params recreated");
+        }
 
         document.getElementById("videoContainer").style.height = _prefs.getInt("rsH") + "px";
 

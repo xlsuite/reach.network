@@ -189,10 +189,16 @@ RiseVision.Video = (function (gadgets) {
   }
 
   function setAdditionalParams(names, values) {
+    console.log("additional params values", values);
     if (Array.isArray(names) && names.length > 0 && names[0] === "additionalParams") {
       if (Array.isArray(values) && values.length > 0) {
         _additionalParams = JSON.parse(values[0]);
         _prefs = new gadgets.Prefs();
+
+        if (!_additionalParams) {
+          _additionalParams = {};
+          console.log("additional params recreated");
+        }
 
         document.getElementById("videoContainer").style.height = _prefs.getInt("rsH") + "px";
 
