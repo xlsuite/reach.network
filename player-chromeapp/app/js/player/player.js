@@ -123,7 +123,6 @@ rvPlayer = function () {
                 }
                 ws.writeTextResponse(socketId, "", keepAlive, ws.CONTENT_TYPE_TEXT_PLAIN);
             } else if (cmd === "/save_property") {
-
                 var displayId = ws.getUrlParam(qs, "display_id");
                 var claimId = ws.getUrlParam(qs, "claim_id");
                 var server = ws.getUrlParam(qs, "server");
@@ -137,6 +136,7 @@ rvPlayer = function () {
 
                 $rv.config.saveDisplayProperties(function () {
                     if ("true" === restartViewerParam) {
+                        log("Saved display_id", $rv.config.displayId);
                         restartViewer();
                     }
                 });
@@ -148,7 +148,6 @@ rvPlayer = function () {
 
                 ws.writeTextResponse(socketId, "", keepAlive, ws.CONTENT_TYPE_TEXT_PLAIN);
             } else if (cmd === "/save_dc") {
-
                 var onStr = ws.getUrlParam(qs, "onStr");
                 var offStr = ws.getUrlParam(qs, "offStr");
                 var status = ws.getUrlParam(qs, "status");

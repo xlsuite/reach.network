@@ -97,7 +97,6 @@ public class EnterDisplayIdWidget extends DisplayRegisterBaseWidget {
 	}
 	
 	public void ValidateDisplayIdCallback(int errorCode, String errorMessage) {
-
 		resetUI();
 		
 		boolean isValid = errorCode == 0;
@@ -107,8 +106,6 @@ public class EnterDisplayIdWidget extends DisplayRegisterBaseWidget {
 		} else {
 			RisePlayerController.saveAndRestart(newDisplayId, "");
 		}
-
-		
 	}
 
 	public static EnterDisplayIdWidget getInstance() {

@@ -38,13 +38,13 @@ public class ViewerInstanceController {
 	            // check if instance is using the same Display Id
 	            if ( newInstanceObject && newInstanceObject.displayId === instanceObject.displayId) {
 		            // block current instance
-		            if ( !duplicateInstance ) {
-		                @com.risevision.viewer.client.data.ViewerInstanceController::handleStorageEvent()();
-		                
-		                duplicateInstance = true;
-		                
-						$wnd.writeToLog("Instance Controller - duplicate found, shutting down");
-		            }
+		            //if ( !duplicateInstance ) {
+		            //    @com.risevision.viewer.client.data.ViewerInstanceController::handleStorageEvent()();
+		            //
+		            //    duplicateInstance = true;
+		            //
+						//$wnd.writeToLog("Instance Controller - duplicate found, shutting down");
+		            //}
 		            
 		            if ( newInstanceObject.timestamp > timestamp) {
 		                $wnd.localStorage.setItem( 'instance', JSON.stringify(instanceObject) );
