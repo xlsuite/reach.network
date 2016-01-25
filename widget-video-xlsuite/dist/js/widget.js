@@ -31,21 +31,22 @@ function loadVideoLinkFromXLSuite(displayKey, successCallback, errorCallback) {
       return;
     }
 
+    //todo: save channel URL to some  settings / variable
     var chanelUrl = data.screen.channel_url;
+    var channelId = chanelUrl.substring(chanelUrl.indexOf("?list=") + 6);
 
-    //todo: save channel URL to some settings / variable
-    console.log("Loaded channel URL", chanelUrl);
+    console.log("Loaded channel URL, channel ID", chanelUrl, channelId);
 
-    var fullUrl = chanelUrl +
-      "&amp;autoplay=1" +
-      "&amp;loop=1" +
-      "&amp;controls=0" +
-      "&amp;showinfo=0 frameborder=0";
-
-    successCallback(fullUrl);
+    successCallback(channelId);
 
     //RN - https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ
     //my - https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA
+
+    //todo: fix embedded errors
+    //https://www.drupal.org/node/1887818
+    //http://stackoverflow.com/questions/12522291/pausing-youtube-iframe-api-in-javascript
+    //http://stackoverflow.com/questions/8205179/youtube-api-handling-videos-that-have-been-removed-by-youtube
+
   });
 
 }
@@ -85,6 +86,8 @@ RiseVision.Video = (function (gadgets) {
     _noFileFlag = false;
 
   var _playlistChangeTimer = null;
+
+  var youtubePlayerJS = null;
 
   /*
    *  Private Methods
@@ -189,11 +192,11 @@ RiseVision.Video = (function (gadgets) {
         frameObj.play();
       } else {
 
-        if (_currentFile && _currentFile !== "") {
-          // add frame and create the player
-          _frameController.add(0);
-          _frameController.createFramePlayer(0, _additionalParams, _currentFile, config.SKIN, "player.html");
-        }
+        //if (_currentFile && _currentFile !== "") {
+        //  // add frame and create the player
+        //  _frameController.add(0);
+        //  _frameController.createFramePlayer(0, _additionalParams, _currentFile, config.SKIN, "player.html");
+        //}
 
       }
     } else {
@@ -232,12 +235,16 @@ RiseVision.Video = (function (gadgets) {
       loadVideoLinkFromXLSuite(displayId, function (videoUrl) {
         if (videoUrl != _currentFile) {
           _currentFile = videoUrl;
-          var $mainIframe = $('#mainIframe');
-          $mainIframe.attr('src', _currentFile);
+          initYTPlayer(_currentFile, _additionalParams.width, _additionalParams.height);
         }
       });
 
     }, xlSuitePlaylistRefreshDuration);
+
+    //if (youtubePlayerJS != null) {
+    //  var state = youtubePlayerJS.getPlayerState();
+    //  console.log("Timer player state", state);
+    //}
   }
 
   function setAdditionalParams(names, values) {
@@ -282,15 +289,55 @@ RiseVision.Video = (function (gadgets) {
 
   function startXLSuitePlayer(videoUrl) {
     _currentFile = videoUrl;
-
-    var $mainIframe = $('#mainIframe');
-    $mainIframe.attr('src', _currentFile);
-    $mainIframe.attr('width', _additionalParams.width);
-    $mainIframe.attr('height', _additionalParams.height);
-
+    initYTPlayer(_currentFile, _additionalParams.width, _additionalParams.height);
     startPlaylistChangeTimer();
 
     _ready();
+  }
+
+  function initYTPlayer(playlistId, width, height) {
+    var $mainIframe = $('#mainIframe');
+    $mainIframe.attr('src', playlistId);
+    $mainIframe.attr('width', width);
+    $mainIframe.attr('height', height);
+
+    console.log("Video url, w, h", playlistId, width, height);
+
+    youtubePlayerJS = new YT.Player('mainIframe', {
+      width: width,
+      height: height,
+      playerVars: {
+        listType:'playlist',
+        list: playlistId,
+        'autoplay': 1,
+        'controls': 0,
+        'loop': 1,
+        'showinfo': 0
+      },
+      events: {
+        'onError': onPlayerError(),
+        'onReady': onPlayerReady(),
+        'onStateChange': onPlayerStateChange()
+      }
+    });
+  }
+
+  function onPlayerError(event) {
+    console.log("Player error code", event);
+  //  if (errorCode >= 100) {
+    if (youtubePlayerJS && youtubePlayerJS != null) {
+      youtubePlayerJS.nextVideo();
+      console.log("Error, playing next video", event);
+    }
+  //  }
+  }
+
+  function onPlayerStateChange(event) {
+    console.log("On player state change", event);
+  }
+
+  function onPlayerReady(event) {
+    console.log("On player ready", event);
   }
 
   function playerError(error) {

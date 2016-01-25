@@ -13,14 +13,22 @@
 </head>
 <body>
 
+  <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+  <script>
+    // loads the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    console.log("YT api downloaded");
+  </script>
+
   <rise-storage id="videoStorage" refresh="5"></rise-storage>
 
   <div id="videoEmbed">
-    <iframe id="mainIframe"
-            width="560"
-            height="315"
-            src=""
-            frameborder="0"></iframe>
+    <div id="mainIframe"></div>
   </div>
 
   <div id="videoContainer">

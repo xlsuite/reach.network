@@ -16,21 +16,22 @@ function loadVideoLinkFromXLSuite(displayKey, successCallback, errorCallback) {
       return;
     }
 
+    //todo: save channel URL to some  settings / variable
     var chanelUrl = data.screen.channel_url;
+    var channelId = chanelUrl.substring(chanelUrl.indexOf("?list=") + 6);
 
-    //todo: save channel URL to some settings / variable
-    console.log("Loaded channel URL", chanelUrl);
+    console.log("Loaded channel URL, channel ID", chanelUrl, channelId);
 
-    var fullUrl = chanelUrl +
-      "&amp;autoplay=1" +
-      "&amp;loop=1" +
-      "&amp;controls=0" +
-      "&amp;showinfo=0 frameborder=0";
-
-    successCallback(fullUrl);
+    successCallback(channelId);
 
     //RN - https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ
     //my - https://www.youtube.com/embed/videoseries?list=PL48ZGwCpwPyFViELgsnvUknRzJyo2gOhA
+
+    //todo: fix embedded errors
+    //https://www.drupal.org/node/1887818
+    //http://stackoverflow.com/questions/12522291/pausing-youtube-iframe-api-in-javascript
+    //http://stackoverflow.com/questions/8205179/youtube-api-handling-videos-that-have-been-removed-by-youtube
+
   });
 
 }

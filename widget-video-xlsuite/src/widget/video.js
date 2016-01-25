@@ -34,6 +34,8 @@ RiseVision.Video = (function (gadgets) {
 
   var _playlistChangeTimer = null;
 
+  var youtubePlayerJS = null;
+
   /*
    *  Private Methods
    */
@@ -137,11 +139,11 @@ RiseVision.Video = (function (gadgets) {
         frameObj.play();
       } else {
 
-        if (_currentFile && _currentFile !== "") {
-          // add frame and create the player
-          _frameController.add(0);
-          _frameController.createFramePlayer(0, _additionalParams, _currentFile, config.SKIN, "player.html");
-        }
+        //if (_currentFile && _currentFile !== "") {
+        //  // add frame and create the player
+        //  _frameController.add(0);
+        //  _frameController.createFramePlayer(0, _additionalParams, _currentFile, config.SKIN, "player.html");
+        //}
 
       }
     } else {
@@ -180,12 +182,16 @@ RiseVision.Video = (function (gadgets) {
       loadVideoLinkFromXLSuite(displayId, function (videoUrl) {
         if (videoUrl != _currentFile) {
           _currentFile = videoUrl;
-          var $mainIframe = $('#mainIframe');
-          $mainIframe.attr('src', _currentFile);
+          initYTPlayer(_currentFile, _additionalParams.width, _additionalParams.height);
         }
       });
 
     }, xlSuitePlaylistRefreshDuration);
+
+    //if (youtubePlayerJS != null) {
+    //  var state = youtubePlayerJS.getPlayerState();
+    //  console.log("Timer player state", state);
+    //}
   }
 
   function setAdditionalParams(names, values) {
@@ -230,15 +236,55 @@ RiseVision.Video = (function (gadgets) {
 
   function startXLSuitePlayer(videoUrl) {
     _currentFile = videoUrl;
-
-    var $mainIframe = $('#mainIframe');
-    $mainIframe.attr('src', _currentFile);
-    $mainIframe.attr('width', _additionalParams.width);
-    $mainIframe.attr('height', _additionalParams.height);
-
+    initYTPlayer(_currentFile, _additionalParams.width, _additionalParams.height);
     startPlaylistChangeTimer();
 
     _ready();
+  }
+
+  function initYTPlayer(playlistId, width, height) {
+    var $mainIframe = $('#mainIframe');
+    $mainIframe.attr('src', playlistId);
+    $mainIframe.attr('width', width);
+    $mainIframe.attr('height', height);
+
+    console.log("Video url, w, h", playlistId, width, height);
+
+    youtubePlayerJS = new YT.Player('mainIframe', {
+      width: width,
+      height: height,
+      playerVars: {
+        listType:'playlist',
+        list: playlistId,
+        'autoplay': 1,
+        'controls': 0,
+        'loop': 1,
+        'showinfo': 0
+      },
+      events: {
+        'onError': onPlayerError(),
+        'onReady': onPlayerReady(),
+        'onStateChange': onPlayerStateChange()
+      }
+    });
+  }
+
+  function onPlayerError(event) {
+    console.log("Player error code", event);
+  //  if (errorCode >= 100) {
+    if (youtubePlayerJS && youtubePlayerJS != null) {
+      youtubePlayerJS.nextVideo();
+      console.log("Error, playing next video", event);
+    }
+  //  }
+  }
+
+  function onPlayerStateChange(event) {
+    console.log("On player state change", event);
+  }
+
+  function onPlayerReady(event) {
+    console.log("On player ready", event);
   }
 
   function playerError(error) {
