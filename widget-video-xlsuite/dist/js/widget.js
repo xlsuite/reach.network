@@ -35,7 +35,15 @@ function loadVideoLinkFromXLSuite(displayKey, successCallback, errorCallback) {
     var chanelUrl = data.screen.channel_url;
     var channelId = chanelUrl.substring(chanelUrl.indexOf("?list=") + 6);
 
+    //var fullUrl = chanelUrl +
+    //  "&amp;autoplay=1" +
+    //  "&amp;enablejsapi=1" +
+    //  "&amp;loop=1" +
+    //  "&amp;controls=0" +
+    //  "&amp;showinfo=0 frameborder=0";
+
     console.log("Loaded channel URL, channel ID", chanelUrl, channelId);
+  //  console.log("Full URL", fullUrl);
 
     successCallback(channelId);
 
@@ -52,6 +60,12 @@ function loadVideoLinkFromXLSuite(displayKey, successCallback, errorCallback) {
 }
 
 /* global gadgets, config */
+
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 var RiseVision = RiseVision || {};
 RiseVision.Video = {};
@@ -296,10 +310,10 @@ RiseVision.Video = (function (gadgets) {
   }
 
   function initYTPlayer(playlistId, width, height) {
-    var $mainIframe = $('#mainIframe');
-    $mainIframe.attr('src', playlistId);
-    $mainIframe.attr('width', width);
-    $mainIframe.attr('height', height);
+    //var $mainIframe = $('#mainIframe');
+    //$mainIframe.attr('src', playlistSrc);
+    //$mainIframe.attr('width', width);
+    //$mainIframe.attr('height', height);
 
     console.log("Video url, w, h", playlistId, width, height);
 
@@ -315,29 +329,27 @@ RiseVision.Video = (function (gadgets) {
         'showinfo': 0
       },
       events: {
-        'onError': onPlayerError(),
-        'onReady': onPlayerReady(),
-        'onStateChange': onPlayerStateChange()
+        'onError': onPlayerError,
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
       }
     });
   }
 
   function onPlayerError(event) {
     console.log("Player error code", event);
-  //  if (errorCode >= 100) {
-    if (youtubePlayerJS && youtubePlayerJS != null) {
+    if (youtubePlayerJS && youtubePlayerJS != null && event && event.data >= 100) {
       youtubePlayerJS.nextVideo();
       console.log("Error, playing next video", event);
     }
-  //  }
   }
 
   function onPlayerStateChange(event) {
-    console.log("On player state change", event);
+  //  console.log("On player state change", event);
   }
 
   function onPlayerReady(event) {
-    console.log("On player ready", event);
+//    console.log("On player ready", event);
   }
 
   function playerError(error) {
