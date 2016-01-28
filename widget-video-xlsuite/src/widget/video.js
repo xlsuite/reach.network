@@ -1,5 +1,11 @@
 /* global gadgets, config */
 
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
 var RiseVision = RiseVision || {};
 RiseVision.Video = {};
 
@@ -243,11 +249,6 @@ RiseVision.Video = (function (gadgets) {
   }
 
   function initYTPlayer(playlistId, width, height) {
-    var $mainIframe = $('#mainIframe');
-    $mainIframe.attr('src', playlistId);
-    $mainIframe.attr('width', width);
-    $mainIframe.attr('height', height);
-
     console.log("Video url, w, h", playlistId, width, height);
 
     youtubePlayerJS = new YT.Player('mainIframe', {
@@ -262,29 +263,27 @@ RiseVision.Video = (function (gadgets) {
         'showinfo': 0
       },
       events: {
-        'onError': onPlayerError(),
-        'onReady': onPlayerReady(),
-        'onStateChange': onPlayerStateChange()
+        'onError': onPlayerError,
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
       }
     });
   }
 
   function onPlayerError(event) {
     console.log("Player error code", event);
-  //  if (errorCode >= 100) {
-    if (youtubePlayerJS && youtubePlayerJS != null) {
+    if (youtubePlayerJS && youtubePlayerJS != null && event && event.data >= 100) {
       youtubePlayerJS.nextVideo();
       console.log("Error, playing next video", event);
     }
-  //  }
   }
 
   function onPlayerStateChange(event) {
-    console.log("On player state change", event);
+  //  console.log("On player state change", event);
   }
 
   function onPlayerReady(event) {
-    console.log("On player ready", event);
+//    console.log("On player ready", event);
   }
 
   function playerError(error) {

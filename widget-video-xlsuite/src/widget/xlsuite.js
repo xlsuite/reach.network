@@ -2,7 +2,6 @@
 
 function loadVideoLinkFromXLSuite(displayKey, successCallback, errorCallback) {
   var apiKey = "2ae45fc2-72b9-45ce-9771-caf0fabf9c97";
-
   console.log("displayKey param", displayKey);
 
   $.ajax({
@@ -21,7 +20,6 @@ function loadVideoLinkFromXLSuite(displayKey, successCallback, errorCallback) {
     var channelId = chanelUrl.substring(chanelUrl.indexOf("?list=") + 6);
 
     console.log("Loaded channel URL, channel ID", chanelUrl, channelId);
-
     successCallback(channelId);
 
     //RN - https://www.youtube.com/embed/videoseries?list=PLn56VbxOS77fd-qbZw0mvnS2Pm__tvSHZ
