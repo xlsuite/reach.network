@@ -18,7 +18,7 @@ if (typeof config === "undefined") {
       .constant("LOCALES_PREFIX", "components/rv-common-i18n/dist/locales/translation_")
       .constant("LOCALES_SUFIX", ".json");
 
-    angular.module("risevision.widget.common.storage-selector.config")
-      .value("STORAGE_MODAL", "https://storage-stage-rva-test.risevision.com/files/");
+    //angular.module("risevision.widget.common.storage-selector.config")
+    //  .value("STORAGE_MODAL", "https://storage-stage-rva-test.risevision.com/files/");
   }
 }
