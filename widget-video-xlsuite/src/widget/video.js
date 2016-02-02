@@ -91,7 +91,7 @@ RiseVision.Video = (function (gadgets) {
 
         if (_prefs.getString("displayId")) {
           displayId = _prefs.getString("displayId");
-          console.log("displayId set from chromeApp param", displayId);
+          console.log("displayId set from gadget param", displayId);
         } else {
           displayId = _additionalParams.displayId;
           console.log("displayId set from default settings", displayId);

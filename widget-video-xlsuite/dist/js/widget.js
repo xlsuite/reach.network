@@ -142,7 +142,7 @@ RiseVision.Video = (function (gadgets) {
 
         if (_prefs.getString("displayId")) {
           displayId = _prefs.getString("displayId");
-          console.log("displayId set from chromeApp param", displayId);
+          console.log("displayId set from gadget param", displayId);
         } else {
           displayId = _additionalParams.displayId;
           console.log("displayId set from default settings", displayId);
@@ -441,6 +441,7 @@ RiseVision.Common.Message = function (mainContainer, messageContainer) {
 
   function polymerReady() {
     window.removeEventListener("WebComponentsReady", polymerReady);
+    console.log("Registering gadget with id", id);
 
     if (id && id !== "") {
       gadgets.rpc.register("rscmd_play_" + id, play);

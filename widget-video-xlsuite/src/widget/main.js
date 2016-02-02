@@ -25,6 +25,7 @@
 
   function polymerReady() {
     window.removeEventListener("WebComponentsReady", polymerReady);
+    console.log("Registering gadget with id", id);
 
     if (id && id !== "") {
       gadgets.rpc.register("rscmd_play_" + id, play);
