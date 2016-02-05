@@ -1,12 +1,12 @@
 {
   "manifest_version": 2,
-  "name": "Reach Network Player Dev",
-  "short_name": "Reach Player",
-  "description": "Reach.Network | TV Ad Network Player",
+  "name": "Social Weedia TV Network",
+  "short_name": "SocialWeedia",
+  "description": "Social Weedia TV Network",
   "author": {
     "email": "hookup@reach.network"
   },
-  "version": "1.4.2",
+  "version": "1.0",
   "icons": {
     "16": "icon_16.png",
     "128": "icon_128.png"
