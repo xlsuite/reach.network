@@ -136,6 +136,7 @@ rvPlayer = function () {
 
                 $rv.config.saveDisplayProperties(function () {
                     if ("true" === restartViewerParam) {
+                        //todo: save displayId locally, then reuse
                         log("Saved display_id", $rv.config.displayId);
                         restartViewer();
                     }
