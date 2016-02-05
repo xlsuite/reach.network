@@ -1,0 +1,181 @@
+<html>
+<head>
+    <title>Reach.Network Chrome App Display Control Settings</title>
+    <style type="text/css">
+        .section {
+            border: 1px solid black;
+            display: table;
+            margin: 5px;
+            padding: 5px;
+        }
+    </style>
+    <script type="text/javascript">
+
+        var playerApi = "http://localhost:9449/";
+
+        function load() {
+            resetStatus();
+            var port = "[PORT]";
+            var status = "[Status]";
+            var onStr = "[onStr]";
+            var offStr = "[offStr]";
+            if (status == "on") {
+                document.getElementById("rbOn").checked = true;
+            } else {
+                document.getElementById("rbOff").checked = true;
+            }
+            document.getElementById("onStr").value = onStr;
+            document.getElementById("offStr").value = offStr;
+
+            buildPortPicker(port);
+        }
+
+        function buildPortPicker(port) {
+            var portString = [[PORTS]];
+            var portPicker = document.getElementById('port-picker');
+            for (var i = 0; i < portString.length; i++) {
+                var portOption = document.createElement('option');
+                portOption.innerHTML = portString[i];
+                portOption.value = portString[i];
+                if (portString[i] == port) portOption.defaultSelected = true;
+                portPicker.appendChild(portOption);
+            }
+        }
+
+
+        function save() {
+            var status = "off";
+            var statusUrlParam = ""
+            if (document.getElementById("rbOn").checked) {
+                status = "on";
+            } else if (document.getElementById("rbOff").checked) {
+                status = "off";
+            }
+            var port = document.getElementById("port-picker").value;
+            var onStr = document.getElementById("onStr").value;
+            var offStr = document.getElementById("offStr").value;
+
+            call_url(playerApi + "save_dc?port=" + port + "&status=" + status + "&onStr=" + onStr + "&offStr=" + offStr);
+        }
+
+        function dcOn() {
+            if (document.getElementById("rbOn").checked) {
+                call_url(playerApi + "set_property?display_command=on");
+            } else {
+                alert("Display Control is off");
+            }
+        }
+
+        function dcOff() {
+            if (document.getElementById("rbOn").checked) {
+                call_url(playerApi + "set_property?display_command=off");
+            } else {
+                alert("Display Control is off");
+            }
+        }
+
+        function call_url(url) {
+            resetStatus();
+
+            var xhr = new XMLHttpRequest();
+            xhr.onload = onSuccess;
+            xhr.onerror = onFailure;
+            xhr.onError = onSuccess;
+            xhr.open("GET", url, false); //IMPORTANT! synchronous request
+            xhr.send();
+            return xhr.responseText;
+
+        }
+
+        function onSuccess(xhrProgressEvent) {
+            var xhr = xhrProgressEvent.target;
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    document.getElementById("statusOK").style.display = "block";
+                } else {
+                    document.getElementById("statusError").style.display = "block";
+                }
+            }
+        }
+
+        function onFailure() {
+            document.getElementById("statusError").style.display = "block";
+        }
+
+        function resetStatus() {
+            document.getElementById("statusOK").style.display = "none";
+            document.getElementById("statusError").style.display = "none";
+        }
+
+        function arrayToHtmlTable(items) {
+            res = "<table border='1' cellpadding='3'>" +
+            "<tr><th></th><th>File Name</th><th align='right'>Size</th></tr>";
+            for (var i = 0; i < items.length; i++) {
+                res += "<tr>" +
+                "<td>" + (i + 1) + "</td>" +
+                "<td>" + items[i].name + "</td>" +
+                "<td align='right'>" + items[i].size + "</td>" +
+                "</tr>";
+            }
+            res += "</table>";
+            console.log(res);
+            return res;
+        }
+
+    </script>
+</head>
+<body style="margin: 0px;" onload="load()">
+<h1>
+    Reach.Network Chrome App Display Control Settings</h1>
+
+<div id="statusOK" style="background-color:#0CFF0C; width:200px; text-align:center; display:none;">Success</div>
+<div id="statusError" style="background-color:Red; width:200px; text-align:center; display:none;">Failure</div>
+<div class="section">
+    <table cellpadding="5" cellspacing="0">
+        <tr>
+            <td>
+                Serial Port:
+            </td>
+            <td>
+                <select id="port-picker"></select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                On Command:
+            </td>
+            <td>
+                <input id="onStr" type="text" value="[onStr]"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Off Command:
+            </td>
+            <td>
+                <input id="offStr" type="text" value="[offStr]"/>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Status:
+            </td>
+            <td>
+                <input id="rbOn" type="radio" name="server" value="on" checked="checked"/>On<br/>
+                <input id="rbOff" type="radio" name="server" value="off"/>Off<br/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td style="padding-top:10px">
+                <button onclick="save()">Apply</button>
+                <button onclick="dcOn()">Display On</button>
+                <button onclick="dcOff()">DisplayOff</button>
+                <br>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

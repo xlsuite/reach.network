@@ -1,0 +1,47 @@
+{
+  "manifest_version": 2,
+  "name": "Reach Network Player Dev",
+  "short_name": "Reach Player",
+  "description": "Reach.Network | TV Ad Network Player",
+  "author": {
+    "email": "hookup@reach.network"
+  },
+  "version": "1.4.2",
+  "icons": {
+    "16": "icon_16.png",
+    "128": "icon_128.png"
+  },
+  "commands": {
+    "command-close": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+1"
+      },
+      "description": "Close the app",
+      "global": true
+    }
+  },
+  "app": {
+    "background": {
+      "scripts": ["main.js"]
+    }
+  },
+  "kiosk_enabled": true,
+  "permissions": [
+    "app.window",
+    "<all_urls>",
+    "fileSystem",
+    "fullscreen",
+    "geolocation",
+    "power",
+    "storage",
+    "unlimitedStorage",
+    "webview",
+    "system.display",
+    "serial",
+    {
+      "socket": ["tcp-listen"]
+    }
+  ]
+
+}
+
