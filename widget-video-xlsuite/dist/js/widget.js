@@ -16,11 +16,11 @@ if (typeof config === "undefined") {
 'use strict';
 
 function loadVideoLinkFromXLSuite(displayKey, successCallback, errorCallback) {
-  var apiKey = "2ae45fc2-72b9-45ce-9771-caf0fabf9c97";
+  var apiKey = "818f22de-40a2-4fa0-a28e-c4d3fa64d331";
   console.log("displayKey param", displayKey);
 
   $.ajax({
-    url: "https://rn.xlsuite.com/admin/api/liquids/call?api_key=" + apiKey + "&tag=load_screen&display_key=" + displayKey
+    url: "https://socialweedia.com/admin/api/liquids/call?api_key=" + apiKey + "&tag=load_screen&display_key=" + displayKey
   }).then(function (data) {
     if (!data || !data.screen) {
       console.log("Error - Returned data is empty", data);
